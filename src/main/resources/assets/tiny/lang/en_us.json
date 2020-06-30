@@ -1,0 +1,36 @@
+{
+  "key.zoom": "Zoom",
+
+  "options.shaders": "Shaders",
+  "options.details": "Details",
+  "options.performance": "Performance",
+
+  "options.other": "Other",
+
+  "options.zoomFactor": "Zoom Factor: %d",
+
+  "options.renderFog": "Fog",
+
+  "options.renderFogStart": "Fog Start: %s",
+  "options.renderFogStart.default": "default",
+  "options.renderFogStart.near": "near",
+  "options.renderFogStart.far": "far",
+
+  "options.textureAnimation": "Animated Textures",
+  "options.waterAnimation": "Water Animation",
+  "options.lavaAnimation": "Lava Animation",
+  "options.itemAnimation": "Item Animation",
+  "options.blockAnimation": "Block Animation",
+  "options.playerAnimation": "Player Animation",
+  "options.entityAnimation": "Entity Animation",
+
+  "options.bedrockFog": "Bedrock Fog",
+
+  "options.cloudHeight": "Cloud Height: %s",
+  "options.renderStars": "Stars",
+  "options.renderWeather": "Weather",
+  "options.renderSky": "Sky",
+
+  "options.fastMath": "Fast Math",
+  "options.dynamicLighting": "Dynamic Lighting"
+}

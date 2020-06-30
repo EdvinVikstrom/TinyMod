@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.fabricmc.tiny.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "GameRendererMixin",
+    "VideoOptionsScreenMixin",
+    "BackgroundRendererMixin",
+    "PlayerEntityRendererMixin",
+    "WorldRendererMixin",
+    "MathHelperMixin",
+    "SpriteAtlasTextureMixin",
+    "SkyPropertiesMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
