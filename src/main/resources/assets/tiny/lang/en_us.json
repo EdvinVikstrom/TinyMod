@@ -2,12 +2,23 @@
   "key.zoom": "Zoom",
 
   "options.shaders": "Shaders",
+  "options.graphics": "Graphics",
   "options.details": "Details",
   "options.performance": "Performance",
 
   "options.other": "Other",
 
   "options.zoomFactor": "Zoom Factor: %d",
+  "options.chatEmotes": "Chat Emotes",
+  "options.debugPieColors": "Debug Colors",
+  "options.debugPieBackgroundOpacity": "Debug Opacity: %d",
+  "options.debugPieTextOpacity": "Debug Text Opacity: %d",
+  "options.debugHud": "Debug Hud",
+    "options.showFPS": "Show FPS",
+    "options.showTPS": "Show TPS",
+  "options.showCollision": "Show Collision",
+  "options.outlines": "Outlines",
+  "options.openglInfo": "Log OpenGL",
 
   "options.renderFog": "Fog",
 
@@ -32,5 +43,12 @@
   "options.renderSky": "Sky",
 
   "options.fastMath": "Fast Math",
-  "options.dynamicLighting": "Dynamic Lighting"
+  "options.optimizedInventory": "Optimized Inventory",
+
+  "options.dynamicLighting": "Dynamic Lighting",
+  "options.bloom": "Bloom",
+  "options.linear": "Linear Textures",
+  "options.betterGrass": "Better Grass",
+
+  "options.fixedInventory": "Fixed Inventory"
 }

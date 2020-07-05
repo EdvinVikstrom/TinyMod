@@ -1,46 +1,79 @@
 package net.fabricmc.tiny;
 
+import net.fabricmc.tiny.event.events.LinearTexEvent;
 import net.fabricmc.tiny.utils.FileUtils;
+import net.fabricmc.tiny.utils.HashMapBuilder;
 import net.fabricmc.tiny.utils.property.*;
+import net.fabricmc.tiny.utils.property.properties.*;
 
 import java.io.File;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class Config {
 
     private static final String CONFIG_FILE = "./tiny-mod.txt";
 
-    private static final LinkedHashMap<String, AbstractProperty<?>> properties = new LinkedHashMap<>();
+    private static final Map<String, AbstractProperty<?>> properties = new LinkedHashMap<>();
     static {
-        properties.put("fastMath", new BooleanProperty(Category.PERFORMANCE, false));
+        //properties.put("bloom", new BooleanProperty(Category.GRAPHICS, false, null));
+        properties.put("linear", new BooleanProperty(Categories.GRAPHICS, false, property -> LinearTexEvent.INSTANCE.update()));
+        properties.put("betterGrass", new BooleanProperty(Categories.GRAPHICS, false, null));
 
-        properties.put("cloudHeight", new IntProperty(Category.DETAILS, 100, 80, 500));
-        properties.put("renderStars", new BooleanProperty(Category.DETAILS, true));
-        properties.put("renderWeather", new BooleanProperty(Category.DETAILS, true));
-        properties.put("renderSky", new BooleanProperty(Category.DETAILS, true));
-        properties.put("renderFog", new BooleanProperty(Category.DETAILS, true));
-        properties.put("renderFogStart", new EnumProperty(Category.DETAILS, 0, new String[]{
+        properties.put("fastMath", new BooleanProperty(Categories.PERFORMANCE, false, null));
+        properties.put("optimizedInventory", new BooleanProperty(Categories.PERFORMANCE, false, null));
+
+        properties.put("cloudHeight", new IntProperty(Categories.DETAILS, 100, 80, 500, null));
+        properties.put("renderStars", new BooleanProperty(Categories.DETAILS, true, null));
+        properties.put("renderWeather", new BooleanProperty(Categories.DETAILS, true, null));
+        properties.put("renderSky", new BooleanProperty(Categories.DETAILS, true, null));
+        properties.put("renderFog", new BooleanProperty(Categories.DETAILS, true, null));
+        properties.put("renderFogStart", new EnumProperty(Categories.DETAILS, 0, new String[]{
                 "default", "near", "far"
-        }));
-        properties.put("bedrockFog", new BooleanProperty(Category.DETAILS, false));
+        }, null));
+        properties.put("bedrockFog", new BooleanProperty(Categories.DETAILS, false, null));
+        properties.put("textureAnimation", new BooleanProperty(Categories.DETAILS, true, null));
 
-        properties.put("textureAnimation", new BooleanProperty(Category.DETAILS, true));
-        properties.put("waterAnimation", new BooleanProperty(Category.DETAILS, true));
-        properties.put("lavaAnimation", new BooleanProperty(Category.DETAILS, true));
-        properties.put("itemAnimation", new BooleanProperty(Category.DETAILS, true));
-        properties.put("blockAnimation", new BooleanProperty(Category.DETAILS, true));
-        properties.put("playerAnimation", new BooleanProperty(Category.DETAILS, true));
-        properties.put("entityAnimation", new BooleanProperty(Category.DETAILS, true));
+        //properties.put("fixedInventory", new BooleanProperty(Category.UI, false, null));
 
-        properties.put("zoomFactor", new FloatProperty(Category.OTHER, 19.0D, 1.0D, 40.0D));
+        properties.put("zoomFactor", new FloatProperty(Categories.OTHER, 19.0D, 1.0D, 40.0D, null));
+        //properties.put("chatEmotes", new BooleanProperty(Category.OTHER, false, null));
+        properties.put("debugPieColors", new BooleanProperty(Categories.OTHER, false, null));
+        properties.put("debugPieBackgroundOpacity", new FloatProperty(Categories.OTHER, 144.0D / 255.0D, 0.0D, 1.0D, null));
+        properties.put("debugPieTextOpacity", new FloatProperty(Categories.OTHER, 224.0D / 255.0D, 0.0D, 1.0D, null));
+        properties.put("debugGraph", new BooleanProperty(Categories.OTHER, false, null));
+        properties.put("debugHud", new ListProperty(Categories.OTHER,
+                new HashMapBuilder<String, AbstractProperty<?>>()
+                        .put("showFPS", new BooleanProperty(Categories.OTHER, false, null))
+                        .put("showTPS", new BooleanProperty(Categories.OTHER, false, null))
+                .build(),
+                null
+        ));
+        properties.put("showCollision", new BooleanProperty(Categories.OTHER, false, null));
+        //properties.put("outlines", new BooleanProperty(Category.OTHER, false, null));
+        properties.put("openglInfo", new BooleanProperty(Categories.OTHER, false, null));
 
-        properties.put("zooming", new BooleanProperty(Category.HIDDEN, false));
-        properties.put("shaderPack", new StringProperty(Category.HIDDEN, "none"));
+        properties.put("zooming", new BooleanProperty(Categories.HIDDEN, false, null));
+        properties.put("shaderPack", new StringProperty(Categories.HIDDEN, "none", null));
     }
 
-    public static LinkedHashMap<String, AbstractProperty<?>> getProperties()
+    public static Map<String, AbstractProperty<?>> getProperties()
     {
+        return properties;
+    }
+
+    public static Map<String, AbstractProperty<?>> getProperties(ICategory category)
+    {
+        Map<String, AbstractProperty<?>> properties = new LinkedHashMap<>();
+        Set<String> keys = getProperties().keySet();
+        for (String key : keys)
+        {
+            AbstractProperty<?> property = getProperty(key);
+            if (!property.getCategory().equals(category))
+                continue;
+            properties.put(key, property);
+        }
         return properties;
     }
 
@@ -64,6 +97,10 @@ public class Config {
     public static StringProperty getString(String key)
     {
         return (StringProperty) properties.get(key);
+    }
+    public static ListProperty getList(String key)
+    {
+        return (ListProperty) properties.get(key);
     }
 
     public static void write()

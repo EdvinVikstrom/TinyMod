@@ -1,4 +1,4 @@
-package net.fabricmc.tiny.mixin;
+package net.fabricmc.tiny.mixin.math;
 
 import net.fabricmc.tiny.Config;
 import net.minecraft.util.math.MathHelper;

@@ -37,11 +37,25 @@ public class TickEvent implements ClientTickCallback {
         ClientTickCallback.EVENT.register(this);
     }
 
+    private static long lastTime = 0;
+    private static int ticks = 0;
     @Override
     public void tick(MinecraftClient client)
     {
+        if ((System.currentTimeMillis() / 1000L) > (lastTime / 1000L))
+        {
+            lastTime = System.currentTimeMillis();
+            tps = ticks;
+            ticks = 0;
+        }
         for (Event event : events)
             event.TickEvent_onClientTick(client);
+        ticks++;
     }
 
+    private static int tps;
+    public static int getCurrentTPS()
+    {
+        return tps;
+    }
 }

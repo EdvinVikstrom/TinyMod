@@ -1,10 +1,10 @@
-package net.fabricmc.tiny.mixin;
+package net.fabricmc.tiny.mixin.ui;
 
-import net.fabricmc.tiny.screen.DetailOptionsScreen;
-import net.fabricmc.tiny.screen.OtherOptionsScreen;
-import net.fabricmc.tiny.screen.PerformanceOptionsScreen;
+import net.fabricmc.tiny.Config;
 import net.fabricmc.tiny.screen.shader.ShaderOptionsScreen;
 import net.fabricmc.tiny.screen.util.OptionButtonWidget;
+import net.fabricmc.tiny.screen.util.OptionMenuBuilder;
+import net.fabricmc.tiny.utils.property.Categories;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.VideoOptionsScreen;
@@ -28,9 +28,18 @@ public class VideoOptionsScreenMixin extends GameOptionsScreen {
 
     private static final Option[] EXTRA_OPTIONS = new Option[]{
             new OptionButtonWidget("shaders", new TranslatableText("options.shaders"), null, button -> MinecraftClient.getInstance().openScreen(new ShaderOptionsScreen(MinecraftClient.getInstance().currentScreen))),
-            new OptionButtonWidget("details", new TranslatableText("options.details"), null, button -> MinecraftClient.getInstance().openScreen(new DetailOptionsScreen(MinecraftClient.getInstance().currentScreen))),
-            new OptionButtonWidget("performance", new TranslatableText("options.performance"), null, button -> MinecraftClient.getInstance().openScreen(new PerformanceOptionsScreen(MinecraftClient.getInstance().currentScreen))),
-            new OptionButtonWidget("misc", new TranslatableText("key.categories.misc"), null, button -> MinecraftClient.getInstance().openScreen(new OtherOptionsScreen(MinecraftClient.getInstance().currentScreen)))
+            new OptionButtonWidget("graphics", new TranslatableText("options.graphics"), null,
+                    button -> MinecraftClient.getInstance().openScreen(
+                    new OptionMenuBuilder(Config.getProperties(Categories.GRAPHICS)).build(MinecraftClient.getInstance().currentScreen, new TranslatableText("options.graphics")))),
+            new OptionButtonWidget("performance", new TranslatableText("options.performance"), null,
+                    button -> MinecraftClient.getInstance().openScreen(
+                            new OptionMenuBuilder(Config.getProperties(Categories.PERFORMANCE)).build(MinecraftClient.getInstance().currentScreen, new TranslatableText("options.performance")))),
+            new OptionButtonWidget("details", new TranslatableText("options.details"), null,
+                    button -> MinecraftClient.getInstance().openScreen(
+                            new OptionMenuBuilder(Config.getProperties(Categories.DETAILS)).build(MinecraftClient.getInstance().currentScreen, new TranslatableText("options.details")))),
+            new OptionButtonWidget("other", new TranslatableText("options.other"), null,
+                    button -> MinecraftClient.getInstance().openScreen(
+                            new OptionMenuBuilder(Config.getProperties(Categories.OTHER)).build(MinecraftClient.getInstance().currentScreen, new TranslatableText("options.other")))),
     };
 
     public VideoOptionsScreenMixin(Screen parent, GameOptions gameOptions, Text title)

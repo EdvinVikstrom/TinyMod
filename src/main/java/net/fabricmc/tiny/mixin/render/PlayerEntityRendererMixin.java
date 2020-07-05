@@ -1,4 +1,4 @@
-package net.fabricmc.tiny.mixin;
+package net.fabricmc.tiny.mixin.render;
 
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;

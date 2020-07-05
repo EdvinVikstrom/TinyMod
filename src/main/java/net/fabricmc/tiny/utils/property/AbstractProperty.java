@@ -1,24 +1,32 @@
 package net.fabricmc.tiny.utils.property;
 
+import javax.annotation.Nullable;
+
 public abstract class AbstractProperty<T> {
 
-    protected final Category category;
+    public interface Event {
+        void update(AbstractProperty<?> property);
+    }
+
+    protected final ICategory category;
     protected final T defaultValue;
     protected T value;
+    protected final Event event;
 
-    public AbstractProperty(Category category, T defaultValue, T value)
+    public AbstractProperty(ICategory category, T defaultValue, T value, @Nullable Event event)
     {
         this.category = category;
         this.defaultValue = defaultValue;
         this.value = value;
+        this.event = event;
     }
 
-    public AbstractProperty(Category category, T defaultValue)
+    public AbstractProperty(ICategory category, T defaultValue, Event event)
     {
-        this(category, defaultValue, defaultValue);
+        this(category, defaultValue, defaultValue, event);
     }
 
-    public Category getCategory()
+    public ICategory getCategory()
     {
         return category;
     }
@@ -36,6 +44,8 @@ public abstract class AbstractProperty<T> {
     public void set(T value)
     {
         this.value = value;
+        if (event != null)
+            event.update(this);
     }
 
     public abstract String asString();

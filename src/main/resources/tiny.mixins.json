@@ -4,16 +4,21 @@
   "package": "net.fabricmc.tiny.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "world.LootableContainerBlockEntityMixin"
   ],
   "client": [
-    "GameRendererMixin",
-    "VideoOptionsScreenMixin",
-    "BackgroundRendererMixin",
-    "PlayerEntityRendererMixin",
-    "WorldRendererMixin",
-    "MathHelperMixin",
-    "SpriteAtlasTextureMixin",
-    "SkyPropertiesMixin"
+    "math.MathHelperMixin",
+    "render.BackgroundRendererMixin",
+    "render.BlockRenderManagerMixin",
+    "render.GameRendererMixin",
+    "render.PlayerEntityRendererMixin",
+    "render.SpriteAtlasTextureMixin",
+    "render.SpriteMixin",
+    "render.WorldRendererMixin",
+    "ui.DebugHudMixin",
+    "ui.VideoOptionsScreenMixin",
+    "world.SkyPropertiesMixin",
+    "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1

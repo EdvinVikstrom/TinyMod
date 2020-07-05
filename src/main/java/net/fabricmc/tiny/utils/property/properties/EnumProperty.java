@@ -1,18 +1,21 @@
-package net.fabricmc.tiny.utils.property;
+package net.fabricmc.tiny.utils.property.properties;
+
+import net.fabricmc.tiny.utils.property.AbstractProperty;
+import net.fabricmc.tiny.utils.property.ICategory;
 
 public class EnumProperty extends AbstractProperty<Integer> {
 
     private final String[] valid;
 
-    public EnumProperty(Category category, Integer defaultValue, String[] valid, Integer value)
+    public EnumProperty(ICategory category, Integer defaultValue, String[] valid, Integer value, Event event)
     {
-        super(category, defaultValue, value);
+        super(category, defaultValue, value, event);
         this.valid = valid;
     }
 
-    public EnumProperty(Category category, Integer defaultValue, String[] valid)
+    public EnumProperty(ICategory category, Integer defaultValue, String[] valid, Event event)
     {
-        super(category, defaultValue);
+        super(category, defaultValue, event);
         this.valid = valid;
     }
 
@@ -21,6 +24,8 @@ public class EnumProperty extends AbstractProperty<Integer> {
         value++;
         if (value >= valid.length)
             value = 0;
+        if (event != null)
+            event.update(this);
     }
 
     public String[] getValid()

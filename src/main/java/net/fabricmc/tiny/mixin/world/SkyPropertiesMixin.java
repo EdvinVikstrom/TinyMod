@@ -1,7 +1,7 @@
-package net.fabricmc.tiny.mixin;
+package net.fabricmc.tiny.mixin.world;
 
 import net.fabricmc.tiny.Config;
-import net.fabricmc.tiny.utils.property.IntProperty;
+import net.fabricmc.tiny.utils.property.properties.IntProperty;
 import net.minecraft.client.render.SkyProperties;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

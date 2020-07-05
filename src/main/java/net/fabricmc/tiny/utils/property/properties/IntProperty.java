@@ -1,19 +1,22 @@
-package net.fabricmc.tiny.utils.property;
+package net.fabricmc.tiny.utils.property.properties;
+
+import net.fabricmc.tiny.utils.property.AbstractProperty;
+import net.fabricmc.tiny.utils.property.ICategory;
 
 public class IntProperty extends AbstractProperty<Integer> {
 
     private final int min, max;
 
-    public IntProperty(Category category, Integer defaultValue, int min, int max, Integer value)
+    public IntProperty(ICategory category, Integer defaultValue, int min, int max, Integer value, Event event)
     {
-        super(category, defaultValue, value);
+        super(category, defaultValue, value, event);
         this.min = min;
         this.max = max;
     }
 
-    public IntProperty(Category category, Integer defaultValue, int min, int max)
+    public IntProperty(ICategory category, Integer defaultValue, int min, int max, Event event)
     {
-        super(category, defaultValue);
+        super(category, defaultValue, event);
         this.min = min;
         this.max = max;
     }

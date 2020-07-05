@@ -1,4 +1,4 @@
-package net.fabricmc.tiny.mixin;
+package net.fabricmc.tiny.mixin.render;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -23,7 +23,7 @@ public class BackgroundRendererMixin {
     private static void applyFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, CallbackInfo info)
     {
         FluidState fluidState = camera.getSubmergedFluidState();
-        if (!Config.getBoolean("renderFog").get() && fluidState.getFluid() == Fluids.EMPTY)
+        if (!Config.getBoolean("renderFog").get() && fluidState.getFluid() == Fluids.EMPTY && fogType != BackgroundRenderer.FogType.FOG_SKY)
             info.cancel();
         if (Config.getBoolean("bedrockFog").get() && camera.getPos().getY() <= 12 && MinecraftClient.getInstance().world != null)
         {

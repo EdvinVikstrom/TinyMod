@@ -1,9 +1,12 @@
-package net.fabricmc.tiny.mixin;
+package net.fabricmc.tiny.mixin.render;
 
 import net.fabricmc.tiny.Config;
+import net.fabricmc.tiny.event.RenderEvent;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.util.math.Matrix4f;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
@@ -22,6 +25,7 @@ public class WorldRendererMixin {
     }
      */
 
+    @Final @Shadow private BufferBuilderStorage bufferBuilders;
     @Shadow private ClientWorld world;
 
     @Inject(at = @At("HEAD"), method = "renderStars(Lnet/minecraft/client/render/BufferBuilder;)V", cancellable = true)
@@ -44,4 +48,11 @@ public class WorldRendererMixin {
         if (!Config.getBoolean("renderSky").get())
             info.cancel();
     }
+
+    @Inject(at = @At("TAIL"), method = "render")
+    private void render(MatrixStack matrices, float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, CallbackInfo info)
+    {
+        RenderEvent.INSTANCE.onWorldRender(new RenderEvent.WorldRendererContext(matrices, tickDelta, limitTime, renderBlockOutline, camera, gameRenderer, lightmapTextureManager, matrix4f, bufferBuilders, world));
+    }
+
 }
