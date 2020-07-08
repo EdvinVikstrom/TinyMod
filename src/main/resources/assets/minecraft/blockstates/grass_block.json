@@ -1,0 +1,44 @@
+{
+  "variants": {
+    "snowy=false,full_block=false": [
+      {
+        "model": "minecraft:block/grass_block"
+      },
+      {
+        "model": "minecraft:block/grass_block",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/grass_block",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/grass_block",
+        "y": 270
+      }
+    ],
+    "snowy=true,full_block=false": {
+      "model": "minecraft:block/grass_block_snow"
+    },
+    "snowy=false,full_block=true": [
+      {
+        "model": "tiny:block/full_grass_block"
+      },
+      {
+        "model": "tiny:block/full_grass_block",
+        "y": 90
+      },
+      {
+        "model": "tiny:block/full_grass_block",
+        "y": 180
+      },
+      {
+        "model": "tiny:block/full_grass_block",
+        "y": 270
+      }
+    ],
+    "snowy=true,full_block=true": {
+      "model": "minecraft:block/grass_block_snow"
+    }
+  }
+}

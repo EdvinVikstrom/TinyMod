@@ -17,18 +17,18 @@ public class MathHelperMixin {
 
     @Inject(at = @At("HEAD"), method = "sin", cancellable = true)
     private static void sin(float f, CallbackInfoReturnable<Float> info) {
-        if (Config.getBoolean("fastMath").get())
+        if (Config.FAST_MATH.get())
             info.setReturnValue(SIN_TABLE[(int) ((Math.abs(f) % (Math.PI * 2)) / (Math.PI * 2)) * FAST_MATH_ABLE_SIZE]);
     }
 
     @Inject(at = @At("HEAD"), method = "cos", cancellable = true)
     private static void cos(float f, CallbackInfoReturnable<Float> info) {
-        if (Config.getBoolean("fastMath").get())
+        if (Config.FAST_MATH.get())
             info.setReturnValue(COS_TABLE[(int) ((Math.abs(f) % (Math.PI * 2)) / (Math.PI * 2)) * FAST_MATH_ABLE_SIZE]);
     }
 
     static {
-        int sineTableSize = Config.getBoolean("fastMath").get() ? FAST_MATH_ABLE_SIZE : 65536;
+        int sineTableSize = Config.FAST_MATH.get() ? FAST_MATH_ABLE_SIZE : 65536;
         SIN_TABLE = new float[sineTableSize];
         COS_TABLE = new float[sineTableSize];
         for(int i = 0; i < sineTableSize; i++)

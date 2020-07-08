@@ -2,29 +2,36 @@ package net.fabricmc.tiny.utils.property;
 
 public interface ICategory {
 
-    String getName();
-    int getPriority();
+    String name();
+    int index();
+    boolean visible();
 
-    static ICategory create(String name, int priority)
+    static ICategory create(String name, int index, boolean visible)
     {
         return new ICategory() {
             @Override
-            public String getName()
+            public String name()
             {
                 return name;
             }
 
             @Override
-            public int getPriority()
+            public int index()
             {
-                return priority;
+                return index;
+            }
+
+            @Override
+            public boolean visible()
+            {
+                return visible;
             }
         };
     }
 
     default boolean equals(ICategory category)
     {
-        return getName().equals(category.getName());
+        return name().equals(category.name());
     }
 
 }

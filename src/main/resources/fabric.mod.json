@@ -4,13 +4,14 @@
   "version": "${version}",
 
   "name": "Tiny Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "Adds tiny functions and optimizes minecraft :)",
   "authors": [
-    "Me!"
+    "Oskar The Stupid Valentine God"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/Ficklampan/TinyMod",
+    "sources": "https://github.com/Ficklampan/TinyMod",
+    "issues": "https://github.com/Ficklampan/TinyMod/issues"
   },
 
   "license": "CC0-1.0",
@@ -20,7 +21,8 @@
   "entrypoints": {
     "client": [
       "net.fabricmc.tiny.TinyMod"
-    ]
+    ],
+    "modmenu": [ "net.fabricmc.tiny.helper.ModMenuHelper" ]
   },
   "mixins": [
     "tiny.mixins.json"
@@ -33,5 +35,9 @@
   },
   "suggests": {
     "flamingo": "*"
+  },
+  "custom": {
+    "modmenu:api": false,
+    "modmenu:clientsideOnly": true
   }
 }

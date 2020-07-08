@@ -23,9 +23,9 @@ public class ShaderOptionsScreen extends Screen {
     private void exit()
     {
         String shaderPackId = shaderListWidget.getSelected() != null ? shaderListWidget.getSelected().getShaderPack().getShaderId() : "none";
-        if (!shaderPackId.equals(Config.getString("shaderPack").get()) && ShaderManager.INSTANCE.getShaderPacks().containsKey(shaderPackId))
+        if (!shaderPackId.equals(Config.SHADER_PACK) && ShaderManager.INSTANCE.getShaderPacks().containsKey(shaderPackId))
         {
-            Config.getString("shaderPack").set(shaderPackId);
+            Config.SHADER_PACK = shaderPackId;
             AbstractShaderPack shaderPack = ShaderManager.INSTANCE.getShaderPacks().get(shaderPackId);
             ShaderSplashScreen splashScreen = new ShaderSplashScreen(client, shaderPack);
             client.setOverlay(splashScreen);
@@ -43,7 +43,7 @@ public class ShaderOptionsScreen extends Screen {
     {
         ShaderManager.INSTANCE.updateEntries();
         shaderListWidget = new ShaderListWidget(this, client, width, height, 32, height - 64, 20);
-        shaderListWidget.updateEntries(ShaderManager.INSTANCE.getShaderPacks().values(), Config.getString("shaderPack").get());
+        shaderListWidget.updateEntries(ShaderManager.INSTANCE.getShaderPacks().values(), Config.SHADER_PACK);
 
         this.addChild(shaderListWidget);
         this.addButton(new ButtonWidget(this.width / 2 - 100 + 150, this.height - 27, 200, 20, ScreenTexts.DONE, (button) -> exit()));

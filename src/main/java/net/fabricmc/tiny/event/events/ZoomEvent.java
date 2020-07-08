@@ -35,15 +35,15 @@ public class ZoomEvent implements InitEvent.Event, TickEvent.Event {
 
     private void startZoom(MinecraftClient client)
     {
-        if (!Config.getBoolean("zooming").get())
+        if (!Config.ZOOMING.get())
             cinemaMode = client.options.smoothCameraEnabled;
         client.options.smoothCameraEnabled = true;
-        Config.getBoolean("zooming").set(true);
+        Config.ZOOMING.set(true);
     }
 
     private void stopZoom(MinecraftClient client)
     {
         client.options.smoothCameraEnabled = cinemaMode;
-        Config.getBoolean("zooming").set(false);
+        Config.ZOOMING.set(false);
     }
 }

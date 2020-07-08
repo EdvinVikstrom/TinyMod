@@ -48,6 +48,11 @@ public abstract class AbstractProperty<T> {
             event.update(this);
     }
 
+    public void reset()
+    {
+        value = defaultValue;
+    }
+
     public abstract String asString();
     public abstract void fromString(String str);
 

@@ -7,17 +7,21 @@
     "world.LootableContainerBlockEntityMixin"
   ],
   "client": [
+    "other.ScreenshotUtilsMixin",
+    "other.TakeScreenshotMixin",
+
     "math.MathHelperMixin",
-    "render.BackgroundRendererMixin",
-    "render.BlockRenderManagerMixin",
-    "render.GameRendererMixin",
-    "render.PlayerEntityRendererMixin",
+
+    "render.ZoomRenderingMixin",
     "render.SpriteAtlasTextureMixin",
-    "render.SpriteMixin",
-    "render.WorldRendererMixin",
-    "ui.DebugHudMixin",
-    "ui.VideoOptionsScreenMixin",
+    "render.WorldRenderingMixin",
+    "render.ItemEntityRenderingMixin",
+    "gui.DebugHudMixin",
+    "gui.VideoOptionsScreenMixin",
+    "gui.LevelLoadingScreenMixin",
+
     "world.SkyPropertiesMixin",
+
     "MinecraftClientMixin"
   ],
   "injectors": {

@@ -1,61 +1,81 @@
 package net.fabricmc.tiny;
 
-import net.fabricmc.tiny.event.events.LinearTexEvent;
 import net.fabricmc.tiny.utils.FileUtils;
-import net.fabricmc.tiny.utils.HashMapBuilder;
-import net.fabricmc.tiny.utils.property.*;
+import net.fabricmc.tiny.utils.property.AbstractProperty;
+import net.fabricmc.tiny.utils.property.Categories;
+import net.fabricmc.tiny.utils.property.ICategory;
 import net.fabricmc.tiny.utils.property.properties.*;
 
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Config {
 
     private static final String CONFIG_FILE = "./tiny-mod.txt";
 
+    public static final BooleanProperty LINEAR_TEXTURES = new BooleanProperty(Categories.GRAPHICS, false, null);
+    public static final BooleanProperty TINY_RENDERER = new BooleanProperty(Categories.GRAPHICS, false, null);
+
+    public static final BooleanProperty FAST_MATH = new BooleanProperty(Categories.PERFORMANCE, false, null);
+
+    public static final FloatProperty CLOUD_HEIGHT = new FloatProperty(Categories.DETAILS, 100D, 80D, 500D, 1.0F, null);
+    public static final BooleanProperty BETTER_GRASS = new BooleanProperty(Categories.DETAILS, false, null);
+    public static final BooleanProperty RENDER_STARS = new BooleanProperty(Categories.DETAILS, false, null);
+    public static final BooleanProperty RENDER_WEATHER = new BooleanProperty(Categories.DETAILS, false, null);
+    public static final BooleanProperty RENDER_SKY = new BooleanProperty(Categories.DETAILS, false, null);
+    public static final BooleanProperty RENDER_FOG = new BooleanProperty(Categories.DETAILS, false, null);
+    public static final BooleanProperty BEDROCK_FOG = new BooleanProperty(Categories.DETAILS, false, null);
+    public static final BooleanProperty TEXTURE_ANIMATION = new BooleanProperty(Categories.DETAILS, false, null);
+    public static final EnumProperty DROPPED_ITEM_RENDERING = new EnumProperty(Categories.DETAILS, 0, new String[]{
+            "default", "fancy", "veryFancy"
+    }, null);
+    public static final BooleanProperty CHUNK_MAP_PREVIEW = new BooleanProperty(Categories.DETAILS, false, null);
+
+    public static final FloatProperty ZOOM_FACTOR = new FloatProperty(Categories.OTHER, 19.0D, 1.0D, 40.0D, 1.0F, null);
+    public static final FloatProperty DEBUG_TEXT_OPACITY = new FloatProperty(Categories.OTHER, 0.9568627451D, 0.0D, 1.0D, 0.01F, null);
+    public static final FloatProperty DEBUG_OPACITY = new FloatProperty(Categories.OTHER, 0.5647058824D, 0.0D, 1.0D, 0.01F, null);
+    public static final BooleanProperty DEBUG_GRAPH = new BooleanProperty(Categories.OTHER, false, null);
+    public static final BooleanProperty SHOW_FPS = new BooleanProperty(Categories.OTHER, false, null);
+    public static final BooleanProperty SHOW_TPS = new BooleanProperty(Categories.OTHER, false, null);
+    public static final BooleanProperty SHOW_COLLISION = new BooleanProperty(Categories.OTHER, false, null);
+    public static final EnumProperty SCREENSHOT_RESOLUTION = new EnumProperty(Categories.OTHER, 0, new String[]{
+            "disabled", "2K", "4K", "6K", "8K", "10K", "12K"
+    }, null);
+    public static final BooleanProperty OPENGL_INFO = new BooleanProperty(Categories.OTHER, false, null);
+
+    public static final AtomicBoolean ZOOMING = new AtomicBoolean(false);
+    public static String SHADER_PACK = "none";
+
     private static final Map<String, AbstractProperty<?>> properties = new LinkedHashMap<>();
     static {
-        //properties.put("bloom", new BooleanProperty(Category.GRAPHICS, false, null));
-        properties.put("linear", new BooleanProperty(Categories.GRAPHICS, false, property -> LinearTexEvent.INSTANCE.update()));
-        properties.put("betterGrass", new BooleanProperty(Categories.GRAPHICS, false, null));
+        properties.put("linearTextures", LINEAR_TEXTURES);
+        properties.put("tinyRenderer", TINY_RENDERER);
 
-        properties.put("fastMath", new BooleanProperty(Categories.PERFORMANCE, false, null));
-        properties.put("optimizedInventory", new BooleanProperty(Categories.PERFORMANCE, false, null));
+        properties.put("fastMath", FAST_MATH);
 
-        properties.put("cloudHeight", new IntProperty(Categories.DETAILS, 100, 80, 500, null));
-        properties.put("renderStars", new BooleanProperty(Categories.DETAILS, true, null));
-        properties.put("renderWeather", new BooleanProperty(Categories.DETAILS, true, null));
-        properties.put("renderSky", new BooleanProperty(Categories.DETAILS, true, null));
-        properties.put("renderFog", new BooleanProperty(Categories.DETAILS, true, null));
-        properties.put("renderFogStart", new EnumProperty(Categories.DETAILS, 0, new String[]{
-                "default", "near", "far"
-        }, null));
-        properties.put("bedrockFog", new BooleanProperty(Categories.DETAILS, false, null));
-        properties.put("textureAnimation", new BooleanProperty(Categories.DETAILS, true, null));
+        properties.put("cloudHeight", CLOUD_HEIGHT);
+        properties.put("betterGrass", BETTER_GRASS);
+        properties.put("renderStars", RENDER_STARS);
+        properties.put("renderWeather", RENDER_WEATHER);
+        properties.put("renderSky", RENDER_SKY);
+        properties.put("renderFog", RENDER_FOG);
+        properties.put("bedrockFog", BEDROCK_FOG);
+        properties.put("textureAnimation", TEXTURE_ANIMATION);
+        properties.put("droppedItemRendering", DROPPED_ITEM_RENDERING);
+        properties.put("chunkMapPreview", CHUNK_MAP_PREVIEW);
 
-        //properties.put("fixedInventory", new BooleanProperty(Category.UI, false, null));
-
-        properties.put("zoomFactor", new FloatProperty(Categories.OTHER, 19.0D, 1.0D, 40.0D, null));
-        //properties.put("chatEmotes", new BooleanProperty(Category.OTHER, false, null));
-        properties.put("debugPieColors", new BooleanProperty(Categories.OTHER, false, null));
-        properties.put("debugPieBackgroundOpacity", new FloatProperty(Categories.OTHER, 144.0D / 255.0D, 0.0D, 1.0D, null));
-        properties.put("debugPieTextOpacity", new FloatProperty(Categories.OTHER, 224.0D / 255.0D, 0.0D, 1.0D, null));
-        properties.put("debugGraph", new BooleanProperty(Categories.OTHER, false, null));
-        properties.put("debugHud", new ListProperty(Categories.OTHER,
-                new HashMapBuilder<String, AbstractProperty<?>>()
-                        .put("showFPS", new BooleanProperty(Categories.OTHER, false, null))
-                        .put("showTPS", new BooleanProperty(Categories.OTHER, false, null))
-                .build(),
-                null
-        ));
-        properties.put("showCollision", new BooleanProperty(Categories.OTHER, false, null));
-        //properties.put("outlines", new BooleanProperty(Category.OTHER, false, null));
-        properties.put("openglInfo", new BooleanProperty(Categories.OTHER, false, null));
-
-        properties.put("zooming", new BooleanProperty(Categories.HIDDEN, false, null));
-        properties.put("shaderPack", new StringProperty(Categories.HIDDEN, "none", null));
+        properties.put("zoomFactor", ZOOM_FACTOR);
+        properties.put("debugTextOpacity", DEBUG_TEXT_OPACITY);
+        properties.put("debugOpacity", DEBUG_OPACITY);
+        properties.put("debugGraph", DEBUG_GRAPH);
+        properties.put("showFPS", SHOW_FPS);
+        properties.put("showTPS", SHOW_TPS);
+        properties.put("showCollision", SHOW_COLLISION);
+        properties.put("screenshotResolution", SCREENSHOT_RESOLUTION);
+        properties.put("openglInfo", OPENGL_INFO);
     }
 
     public static Map<String, AbstractProperty<?>> getProperties()
@@ -82,25 +102,20 @@ public class Config {
         return properties.get(key);
     }
 
-    public static BooleanProperty getBoolean(String key)
+    public static void resetProperties()
     {
-        return (BooleanProperty) properties.get(key);
+        for (AbstractProperty<?> property : properties.values())
+            property.reset();
     }
-    public static FloatProperty getFloat(String key)
+
+    public static void resetProperties(ICategory category)
     {
-        return (FloatProperty) properties.get(key);
-    }
-    public static IntProperty getInt(String key)
-    {
-        return (IntProperty) properties.get(key);
-    }
-    public static StringProperty getString(String key)
-    {
-        return (StringProperty) properties.get(key);
-    }
-    public static ListProperty getList(String key)
-    {
-        return (ListProperty) properties.get(key);
+        for (AbstractProperty<?> property : properties.values())
+        {
+            if (!property.getCategory().equals(category))
+                continue;
+            property.reset();
+        }
     }
 
     public static void write()

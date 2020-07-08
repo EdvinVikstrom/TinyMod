@@ -1,7 +1,7 @@
 package net.fabricmc.tiny.mixin.world;
 
 import net.fabricmc.tiny.Config;
-import net.fabricmc.tiny.utils.property.properties.IntProperty;
+import net.fabricmc.tiny.utils.property.properties.FloatProperty;
 import net.minecraft.client.render.SkyProperties;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,11 +18,11 @@ public class SkyPropertiesMixin {
     @Inject(at = @At("HEAD"), method = "getCloudsHeight", cancellable = true)
     private void getCloudsHeight(CallbackInfoReturnable<Float> info)
     {
-        IntProperty height = Config.getInt("cloudHeight");
-        if (height.get() != 100)
+        FloatProperty height = Config.CLOUD_HEIGHT;
+        if (height.get() != 100D)
         {
-            float m = (float) height.get() / 100.0F;
-            info.setReturnValue(cloudsHeight * m);
+            double m = height.get() / 100.0D;
+            info.setReturnValue((float) (cloudsHeight * m));
         }
     }
 

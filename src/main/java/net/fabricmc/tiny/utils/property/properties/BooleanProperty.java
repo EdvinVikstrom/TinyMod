@@ -1,5 +1,6 @@
 package net.fabricmc.tiny.utils.property.properties;
 
+import net.fabricmc.tiny.utils.exceptions.UnknownDataTypeException;
 import net.fabricmc.tiny.utils.property.AbstractProperty;
 import net.fabricmc.tiny.utils.property.ICategory;
 
@@ -29,6 +30,15 @@ public class BooleanProperty extends AbstractProperty<Boolean> {
     @Override
     public void fromString(String str)
     {
+        if (!str.equalsIgnoreCase("true") && !str.equalsIgnoreCase("false"))
+            throw new UnknownDataTypeException(str);
         value = str.equalsIgnoreCase("true");
+    }
+
+
+    @Override
+    public String toString()
+    {
+        return value ? "true" : "false";
     }
 }
