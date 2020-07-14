@@ -1,4 +1,4 @@
-package net.fabricmc.tiny.render.tiny_renderer.world;
+package net.fabricmc.tiny.render.tiny_renderer_wip.world;
 
 import net.fabricmc.tiny.render.api.MeshQuad;
 import net.fabricmc.tiny.render.api.utils.MeshBuilder;
@@ -12,7 +12,6 @@ import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;

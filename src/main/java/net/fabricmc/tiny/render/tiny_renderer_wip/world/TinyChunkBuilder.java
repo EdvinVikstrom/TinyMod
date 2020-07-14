@@ -1,8 +1,8 @@
-package net.fabricmc.tiny.render.tiny_renderer.world;
+package net.fabricmc.tiny.render.tiny_renderer_wip.world;
 
 import net.fabricmc.tiny.render.api.utils.MeshBuilder;
-import net.fabricmc.tiny.render.tiny_renderer.TinyMesh;
-import net.fabricmc.tiny.render.tiny_renderer.TinyRenderer;
+import net.fabricmc.tiny.render.tiny_renderer_wip.TinyMesh;
+import net.fabricmc.tiny.render.tiny_renderer_wip.TinyRenderer;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;

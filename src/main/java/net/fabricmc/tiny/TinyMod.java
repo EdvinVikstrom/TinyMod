@@ -9,7 +9,7 @@ import net.fabricmc.tiny.event.TickEvent;
 import net.fabricmc.tiny.event.events.*;
 import net.fabricmc.tiny.render.BlockCollisionRenderer;
 import net.fabricmc.tiny.render.HudRenderer;
-import net.fabricmc.tiny.render.tiny_renderer.TinyRenderer;
+import net.fabricmc.tiny.render.tiny_renderer_wip.TinyRenderer;
 import net.minecraft.client.MinecraftClient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

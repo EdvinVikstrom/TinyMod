@@ -69,6 +69,7 @@
   "config.renderStars": "Stars",
   "config.renderWeather": "Weather",
   "config.renderSky": "Sky",
+  "config.connectedTextures": "Connected Textures",
 
   "config.fastMath": "Fast Math",
   "config.optimizedInventory": "Optimized Inventory",

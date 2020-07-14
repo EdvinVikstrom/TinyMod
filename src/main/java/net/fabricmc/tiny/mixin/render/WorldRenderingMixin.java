@@ -1,16 +1,16 @@
 package net.fabricmc.tiny.mixin.render;
 
 import net.fabricmc.tiny.Config;
-import net.fabricmc.tiny.render.tiny_renderer.TinyMesh;
-import net.fabricmc.tiny.render.tiny_renderer.TinyRenderer;
-import net.fabricmc.tiny.render.tiny_renderer.world.TinyBuiltChunk;
-import net.fabricmc.tiny.render.tiny_renderer.world.TinyChunkBuilder;
+import net.fabricmc.tiny.render.tiny_renderer_wip.TinyRenderer;
+import net.fabricmc.tiny.render.tiny_renderer_wip.world.TinyBuiltChunk;
+import net.fabricmc.tiny.render.tiny_renderer_wip.world.TinyChunkBuilder;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.VertexBuffer;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.Matrix4f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -45,28 +45,13 @@ public class WorldRenderingMixin {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "renderLayer", cancellable = true)
-    private void renderLayer(RenderLayer renderLayer, MatrixStack matrixStack, double d, double e, double f, CallbackInfo info)
+    @Redirect(at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/client/gl/VertexBuffer;draw(Lnet/minecraft/util/math/Matrix4f;I)V"),
+            method = "renderLayer")
+    private void renderLayer(VertexBuffer vertexBuffer, Matrix4f matrix, int mode)
     {
         if (Config.TINY_RENDERER.get())
-        {
-            if (builtChunk != null)
-            {
-                renderLayer.startDrawing();
-                TinyMesh mesh = TinyRenderer.INSTANCE.meshManager().getMeshById(builtPos.toLong());
-                BlockPos blockPos = new BlockPos(builtPos.x, 0, builtPos.z);
-
-                matrixStack.push();
-                matrixStack.translate((double) blockPos.getX() - d, (double) blockPos.getY() - e, (double) blockPos.getZ() - f);
-                vertexFormat.startDrawing(0L);
-                TinyRenderer.INSTANCE.meshManager().renderMesh(mesh, matrixStack.peek().getModel());
-                matrixStack.pop();
-
-                vertexFormat.endDrawing();
-                renderLayer.endDrawing();
-            }
-            info.cancel();
-        }
+            TinyRenderer.INSTANCE.meshManager().renderMesh(builtChunk.getMesh(), matrix);
     }
 
     @Redirect(at = @At(value = "INVOKE",

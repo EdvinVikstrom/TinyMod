@@ -1,4 +1,4 @@
-package net.fabricmc.tiny.render.tiny_renderer;
+package net.fabricmc.tiny.render.tiny_renderer_wip;
 
 import net.fabricmc.tiny.render.api.MeshQuad;
 import net.fabricmc.tiny.render.api.Vertex;

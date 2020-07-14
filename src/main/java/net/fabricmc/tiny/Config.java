@@ -26,6 +26,7 @@ public class Config {
     public static final BooleanProperty RENDER_STARS = new BooleanProperty(Categories.DETAILS, true, null);
     public static final BooleanProperty RENDER_WEATHER = new BooleanProperty(Categories.DETAILS, true, null);
     public static final BooleanProperty RENDER_SKY = new BooleanProperty(Categories.DETAILS, true, null);
+    public static final BooleanProperty CONNECTED_TEXTURES = new BooleanProperty(Categories.DETAILS, true, null);
 
     public static final FloatProperty RENDER_FOG$FAR_VALUE = new FloatProperty(Categories.DETAILS, 2.0D, 1.0D, 10.0D, 0.1F, null);
     public static final FloatProperty RENDER_FOG$NEAR_VALUE = new FloatProperty(Categories.DETAILS, 0.5D, 0.1D, 1.0D, 0.1F, null);
@@ -50,7 +51,7 @@ public class Config {
     public static final BooleanProperty SHOW_COORDS = new BooleanProperty(Categories.OTHER, false, null);
     public static final BooleanProperty SHOW_COLLISION = new BooleanProperty(Categories.OTHER, false, null);
     public static final EnumProperty SCREENSHOT_RESOLUTION = new EnumProperty(Categories.OTHER, 0, new String[]{
-            "disabled", "2K", "4K", "6K", "8K", "10K", "12K"
+            "disabled", "2K", "4K", "8K", "12K", "16K", "24K", "32K", "48K", "64K"
     }, null);
     public static final BooleanProperty OPENGL_INFO = new BooleanProperty(Categories.OTHER, false, null);
 
@@ -80,6 +81,7 @@ public class Config {
         properties.put("renderWeather", RENDER_WEATHER);
         properties.put("renderSky", RENDER_SKY);
         properties.put("renderFog", RENDER_FOG);
+        properties.put("connectedTextures", CONNECTED_TEXTURES);
         //properties.put("bedrockFog", BEDROCK_FOG);
         properties.put("textureAnimation", TEXTURE_ANIMATION);
         properties.put("droppedItemRendering", DROPPED_ITEM_RENDERING);
