@@ -3,12 +3,10 @@ package net.fabricmc.tiny.mixin.gui;
 import net.fabricmc.tiny.Config;
 import net.fabricmc.tiny.render.GraphRenderer;
 import net.fabricmc.tiny.render.HudRenderer;
-import net.fabricmc.tiny.utils.NumUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.DebugHud;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -18,11 +16,6 @@ import java.util.List;
 
 @Mixin(DebugHud.class)
 public class DebugHudMixin {
-
-    private static final Formatting DIGIT_COLOR = Formatting.YELLOW;
-    private static final Formatting X_COLOR = Formatting.RED;
-    private static final Formatting Y_COLOR = Formatting.GREEN;
-    private static final Formatting Z_COLOR = Formatting.BLUE;
 
     private static final int GRAPH_SCALE = 128;
     private static final GraphRenderer GRAPH_RENDERER = new GraphRenderer();
@@ -43,26 +36,11 @@ public class DebugHudMixin {
     @Inject(at = @At("RETURN"), method = "getLeftText")
     private void getLeftText(CallbackInfoReturnable<List<String>> info)
     {
-        /*
-        if (!Config.getBoolean("debugPieColors").get())
-            return;
-        List<String> list = info.getReturnValue();
-        addColors(list);
-
-         */
     }
 
     @Inject(at = @At("RETURN"), method = "getRightText")
     private void getRightText(CallbackInfoReturnable<List<String>> info)
     {
-        /*
-        if (!Config.getBoolean("debugPieColors").get())
-            return;
-        List<String> list = info.getReturnValue();
-        addColors(list);
-
-
-         */
     }
 
     @ModifyConstant(constant = @Constant(intValue = -1873784752), method = "renderLeftText")
@@ -91,42 +69,6 @@ public class DebugHudMixin {
 
     private static void addColors(List<String> list)
     {
-        for (int i = 0; i < list.size(); i++)
-        {
-            String string = list.get(i);
-            StringBuilder builder = new StringBuilder();
-            int currentColor = Formatting.RESET.getColorIndex();
-            for (int k = 0; k < string.length(); k++)
-            {
-                char c = string.charAt(k);
-                char last = k > 0 ? string.charAt(k - 1) : '\0';
-                char next = k < string.length() - 1 ? string.charAt(k + 1) : '\0';
-                if ((NumUtils.isDigit(c) || (NumUtils.isDigit(last) && c == '.') || (NumUtils.isDigit(next) && (c == '-' || c == '+'))) && currentColor != DIGIT_COLOR.getColorIndex())
-                {
-                    builder.append(DIGIT_COLOR.toString());
-                    currentColor = DIGIT_COLOR.getColorIndex();
-                }else if (c == 'X' && currentColor != X_COLOR.getColorIndex())
-                {
-                    builder.append(X_COLOR.toString());
-                    currentColor = X_COLOR.getColorIndex();
-                }else if (c == 'Y' && currentColor != Y_COLOR.getColorIndex())
-                {
-                    builder.append(Y_COLOR.toString());
-                    currentColor = Y_COLOR.getColorIndex();
-                }else if (c == 'Z' && currentColor != Z_COLOR.getColorIndex())
-                {
-                    builder.append(Z_COLOR.toString());
-                    currentColor = Z_COLOR.getColorIndex();
-                }else if (currentColor != Formatting.RESET.getColorIndex())
-                {
-                    builder.append(Formatting.RESET.toString());
-                    currentColor = Formatting.RESET.getColorIndex();
-                }
-                builder.append(c);
-            }
-            string = builder.toString() + Formatting.RESET;
-            list.set(i, string);
-        }
     }
 
 }

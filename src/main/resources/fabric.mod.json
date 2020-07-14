@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "tiny",
-  "version": "${version}",
+  "version": "0.0.1",
 
   "name": "Tiny Mod",
   "description": "Adds tiny functions and optimizes minecraft :)",
@@ -22,7 +22,7 @@
     "client": [
       "net.fabricmc.tiny.TinyMod"
     ],
-    "modmenu": [ "net.fabricmc.tiny.helper.ModMenuHelper" ]
+    "modmenu": [ "net.fabricmc.tiny.compat.ModMenuHelper" ]
   },
   "mixins": [
     "tiny.mixins.json"

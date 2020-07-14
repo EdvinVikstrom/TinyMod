@@ -1,5 +1,6 @@
 {
   "key.zoom": "Zoom",
+  "key.tiny_mod.config": "Tiny Config",
 
   "config.title": "Config",
   "config.title.info": "Config %s/%s",
@@ -24,9 +25,11 @@
   "config.debugPieColors": "Debug Colors",
   "config.debugPieBackgroundOpacity": "Debug Opacity: %d",
   "config.debugPieTextOpacity": "Debug Text Opacity: %d",
+  "config.debugColors": "Debug Colors",
   "config.debugHud": "Debug Hud",
     "config.showFPS": "Show FPS",
     "config.showTPS": "Show TPS",
+    "config.showCoords": "Show Coordinates",
   "config.screenshotResolution": "Screenshot Size: %s",
     "config.screenshotResolution.disabled": "default",
     "config.screenshotResolution.2K": "2K",
@@ -40,11 +43,12 @@
   "config.openglInfo": "Log OpenGL",
 
   "config.renderFog": "Fog",
-
-  "config.renderFogStart": "Fog Start: %s",
-  "config.renderFogStart.default": "default",
-  "config.renderFogStart.near": "near",
-  "config.renderFogStart.far": "far",
+    "config.renderFog.default": "default",
+    "config.renderFog.far": "far",
+    "config.renderFog.near": "near",
+    "config.renderFog.off": "none",
+      "config.renderFog.far_value": "Far Amount",
+      "config.renderFog.near_value": "Near Amount",
 
   "config.textureAnimation": "Animated Textures",
   "config.waterAnimation": "Water Animation",
@@ -55,8 +59,8 @@
   "config.entityAnimation": "Entity Animation",
   "config.droppedItemRendering": "Item Rendering: %s",
     "config.droppedItemRendering.default": "default",
+    "config.droppedItemRendering.simple": "simple",
     "config.droppedItemRendering.fancy": "fancy",
-    "config.droppedItemRendering.veryFancy": "very fancy",
   "config.chunkMapPreview": "ChunkMap Preview",
 
   "config.bedrockFog": "Bedrock Fog",
@@ -75,5 +79,8 @@
   "config.linear": "Linear Textures",
   "config.tinyRenderer": "Tiny Renderer",
 
-  "config.fixedInventory": "Fixed Inventory"
+  "config.fixedInventory": "Fixed Inventory",
+
+  "text.error.gl4": "OpenGL 4.0.0 not supported",
+  "text.error.gl4.info": "Using vanilla renderer"
 }

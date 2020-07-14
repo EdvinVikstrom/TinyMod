@@ -1,10 +1,8 @@
 package net.fabricmc.tiny.screen.config;
 
 import net.fabricmc.tiny.Config;
-import net.fabricmc.tiny.screen.widget.AbstractPropertyButtonWidget;
-import net.fabricmc.tiny.screen.widget.BooleanPropertyButtonWidget;
-import net.fabricmc.tiny.screen.widget.EnumPropertyButtonWidget;
-import net.fabricmc.tiny.screen.widget.FloatPropertyButtonWidget;
+import net.fabricmc.tiny.Constants;
+import net.fabricmc.tiny.screen.widget.*;
 import net.fabricmc.tiny.utils.StrUtils;
 import net.fabricmc.tiny.utils.property.AbstractProperty;
 import net.fabricmc.tiny.utils.property.Categories;
@@ -15,20 +13,19 @@ import net.fabricmc.tiny.utils.property.properties.FloatProperty;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.Element;
+import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.gui.widget.ElementListWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ConfigListWidget extends ElementListWidget<ConfigListWidget.AbstractEntry> {
 
     private final Map<String, AbstractProperty<?>> properties;
-    private final List<PropertyEntry> propertyEntries = new ArrayList<>();
+    private final List<PropertyEntry> allPropertyEntries = new ArrayList<>();
+    private final List<AbstractEntry> visibleEntries = new ArrayList<>();
 
     public ConfigListWidget(MinecraftClient minecraftClient, int i, int j, int k, int l, int m, Map<String, AbstractProperty<?>> properties)
     {
@@ -41,16 +38,18 @@ public class ConfigListWidget extends ElementListWidget<ConfigListWidget.Abstrac
         for (String key : properties.keySet())
         {
             AbstractProperty<?> property = properties.get(key);
-
-            if (property instanceof BooleanProperty) propertyEntries.add(new BooleanEntry(key, (BooleanProperty) property));
-            else if (property instanceof FloatProperty) propertyEntries.add(new FloatEntry(key, (FloatProperty) property));
-            else if (property instanceof EnumProperty) propertyEntries.add(new EnumEntry(key, (EnumProperty) property));
+            addPropertyEntry(allPropertyEntries, key, property);
         }
     }
 
     public void filter(ICategory category, SortType sortType, String string)
     {
-        clearEntries();
+        filter(visibleEntries, allPropertyEntries, category, sortType, string);
+    }
+
+    public void filter(List<AbstractEntry> abstractEntries, List<PropertyEntry> propertyEntries, ICategory category, SortType sortType, String string)
+    {
+        abstractEntries.clear();
         Map<ICategory, List<PropertyEntry>> entryMap = new LinkedHashMap<>();
         for (ICategory cat : Categories.getCategories())
         {
@@ -79,26 +78,54 @@ public class ConfigListWidget extends ElementListWidget<ConfigListWidget.Abstrac
                 }
             }
             if (addCategory)
-                addEntry(new CategoryEntry(cat));
-            for (PropertyEntry entry : entryList)
-                addEntry(entry);
+                abstractEntries.add(new CategoryEntry(cat));
+            abstractEntries.addAll(entryList);
         }
+        reload();
+    }
+
+    private void addPropertyEntry(List<PropertyEntry> propertyEntries, String key, AbstractProperty<?> property)
+    {
+        PropertyEntry propertyEntry = null;
+        if (property instanceof BooleanProperty) propertyEntry = new BooleanEntry(key, (BooleanProperty) property);
+        else if (property instanceof FloatProperty) propertyEntry = new FloatEntry(key, (FloatProperty) property);
+        else if (property instanceof EnumProperty) propertyEntry = new EnumEntry(key, (EnumProperty) property);
+        if (propertyEntry != null)
+            propertyEntries.add(propertyEntry);
+    }
+
+    private void reload()
+    {
+        clearEntries();
+        for (AbstractEntry entry : visibleEntries)
+            addEntry(entry);
     }
 
     public static class CategoryEntry extends AbstractEntry {
 
         private final ICategory category;
 
+        private final TranslatableText translatableText;
+
         public CategoryEntry(ICategory category)
         {
             this.category = category;
+            translatableText = new TranslatableText("config." + category.name());
+        }
+
+        @Override
+        public int getHeight()
+        {
+            return 24;
         }
 
         @Override
         public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta)
         {
             TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-            textRenderer.draw(matrices, Formatting.BOLD + Formatting.YELLOW.toString() + (new TranslatableText("config." + category.name()).getString()), x, y + (textRenderer.fontHeight / 2.0F), 0xFFFFFFFF);
+            String text = Formatting.YELLOW + Formatting.BOLD.toString() + translatableText.getString();
+            int textWidth = textRenderer.getWidth(text);
+            textRenderer.draw(matrices, text, x + ((entryWidth / 2.0F) - (textWidth / 2.0F)), y + (textRenderer.fontHeight / 2.0F), 0xFFFFFFFF);
         }
     }
 
@@ -106,7 +133,7 @@ public class ConfigListWidget extends ElementListWidget<ConfigListWidget.Abstrac
 
         public BooleanEntry(String key, BooleanProperty property)
         {
-            super(key, property, new BooleanPropertyButtonWidget(0, 0, 45, 20, "config." + key, property));
+            super(key, property, new BooleanPropertyButtonWidget(0, 0, 45, 20, "config." + key, property, null));
             children.add(buttonWidget);
         }
     }
@@ -115,7 +142,7 @@ public class ConfigListWidget extends ElementListWidget<ConfigListWidget.Abstrac
 
         public FloatEntry(String key, FloatProperty property)
         {
-            super(key, property, new FloatPropertyButtonWidget(0, 0, 45, 20, "config." + key, property));
+            super(key, property, new FloatPropertyButtonWidget(0, 0, 45, 20, "config." + key, property, null));
             children.add(buttonWidget);
         }
     }
@@ -124,7 +151,7 @@ public class ConfigListWidget extends ElementListWidget<ConfigListWidget.Abstrac
 
         public EnumEntry(String key, EnumProperty property)
         {
-            super(key, property, new EnumPropertyButtonWidget(0, 0, 45, 20, "config." + key, property));
+            super(key, property, new EnumPropertyButtonWidget(0, 0, 45, 20, "config." + key, property, null));
             children.add(buttonWidget);
         }
     }
@@ -134,6 +161,9 @@ public class ConfigListWidget extends ElementListWidget<ConfigListWidget.Abstrac
         protected final String key;
         protected final AbstractProperty<?> property;
         protected final AbstractPropertyButtonWidget<?> buttonWidget;
+        protected final AbstractButtonWidget customizeButtonWidget;
+
+        protected final TranslatableText translatableText;
 
         public PropertyEntry(String key, AbstractProperty<?> property, AbstractPropertyButtonWidget<?> buttonWidget)
         {
@@ -141,6 +171,15 @@ public class ConfigListWidget extends ElementListWidget<ConfigListWidget.Abstrac
             this.key = key;
             this.property = property;
             children.add(buttonWidget);
+            if (property.getChildren().size() > 0)
+            {
+                customizeButtonWidget = new TinyTexturedButtonWidget(0, 0, 8, 20, 0, 0, 64, 64, Constants.WIDGET_TEXTURE, button -> {
+
+                });
+                children.add(customizeButtonWidget);
+            }else
+                customizeButtonWidget = null;
+            translatableText = new TranslatableText("config." + key);
         }
 
         public String getKey()
@@ -153,20 +192,48 @@ public class ConfigListWidget extends ElementListWidget<ConfigListWidget.Abstrac
             return property;
         }
 
+        private String getText()
+        {
+            StringBuilder prefix = new StringBuilder();
+            if (property.hasFlag(AbstractProperty.FLAG_DEPRECATED))
+                prefix.append(Formatting.STRIKETHROUGH.toString());
+            return prefix.toString() + translatableText.getString();
+        }
+
+        private void update()
+        {
+            buttonWidget.active = !property.hasFlag(AbstractProperty.FLAG_DEPRECATED);
+        }
+
+        @Override
+        public int getHeight()
+        {
+            return 24;
+        }
+
         @Override
         public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta)
         {
+            update();
             TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-            textRenderer.draw(matrices, new TranslatableText(key), x + 8, y + (textRenderer.fontHeight / 2.0F), 0xFFFFFFFF);
+            textRenderer.draw(matrices, getText(), x, y + (textRenderer.fontHeight / 2.0F), 0xFFFFFFFF);
             buttonWidget.x = x + entryWidth - 50;
             buttonWidget.y = y;
             buttonWidget.render(matrices, mouseX, mouseY, tickDelta);
+            if (customizeButtonWidget != null)
+            {
+                customizeButtonWidget.x = x + entryWidth - 4;
+                customizeButtonWidget.y = y;
+                customizeButtonWidget.render(matrices, mouseX, mouseY, tickDelta);
+            }
         }
     }
 
     public static abstract class AbstractEntry extends ElementListWidget.Entry<AbstractEntry> {
 
         protected final List<Element> children = new ArrayList<>();
+
+        public abstract int getHeight();
 
         @Override
         public List<? extends Element> children()

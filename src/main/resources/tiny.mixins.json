@@ -4,7 +4,6 @@
   "package": "net.fabricmc.tiny.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "world.LootableContainerBlockEntityMixin"
   ],
   "client": [
     "other.ScreenshotUtilsMixin",
@@ -14,8 +13,11 @@
 
     "render.ZoomRenderingMixin",
     "render.SpriteAtlasTextureMixin",
+    "render.SpriteAtlasTexture$DataMixin",
     "render.WorldRenderingMixin",
     "render.ItemEntityRenderingMixin",
+    "render.BakedQuadMixin",
+
     "gui.DebugHudMixin",
     "gui.VideoOptionsScreenMixin",
     "gui.LevelLoadingScreenMixin",

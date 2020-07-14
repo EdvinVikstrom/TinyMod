@@ -67,7 +67,7 @@ public class ConfigMenuScreen extends Screen {
         configListWidget.init();
         configListWidget.filter(categoryFilter.peek(), sortFilter, "");
 
-        searchWidget = new TextFieldWidget(textRenderer, 8, 8, 300, 20, searchWidget, new TranslatableText("selectWorld.search"));
+        searchWidget = new TextFieldWidget(textRenderer, 8, 8, 234, 20, searchWidget, new TranslatableText("selectWorld.search"));
         searchWidget.setChangedListener(string -> configListWidget.filter(categoryFilter.peek(), sortFilter, string));
         categoryButton = new ButtonWidget(8, 32, 150, 20, getCategoryButtonText(), button -> {
             categoryFilter.cycle(1);

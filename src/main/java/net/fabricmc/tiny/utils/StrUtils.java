@@ -19,4 +19,16 @@ public class StrUtils {
         return 0;
     }
 
+    public static String trimEnd(String str)
+    {
+        int end = str.length();
+        for (int i = end - 1; i >= 0; i--)
+        {
+            char c = str.charAt(i);
+            if (c != ' ' && c != '\t' && c != '\0')
+                end = i;
+        }
+        return str.substring(0, end);
+    }
+
 }

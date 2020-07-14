@@ -35,6 +35,7 @@ public class LevelLoadingScreenMixin {
     @Inject(at = @At("HEAD"), method = "drawChunkMap", cancellable = true)
     private static void drawChunkMap(MatrixStack matrixStack, WorldGenerationProgressTracker worldGenerationProgressTracker, int a, int b, int c, int d, CallbackInfo info)
     {
+        /*
         if (Config.CHUNK_MAP_PREVIEW.get())
         {
             c = 1;
@@ -94,6 +95,8 @@ public class LevelLoadingScreenMixin {
             textRenderer.draw(matrixStack, text, centerX - (textWidth / 2.0F), textY, 16777215);
             info.cancel();
         }
+
+         */
     }
 
     private static boolean warnPrinted = false;

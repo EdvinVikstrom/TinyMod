@@ -1,76 +1,33 @@
 package net.fabricmc.tiny.render.tiny_renderer;
 
-import net.fabricmc.fabric.api.renderer.v1.material.BlendMode;
-import net.fabricmc.fabric.api.renderer.v1.material.MaterialFinder;
-import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
+import net.minecraft.client.texture.Sprite;
 import net.minecraft.util.Identifier;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
-public class TinyMaterialManager implements MaterialFinder {
+public class TinyMaterialManager {
 
-    private final ConcurrentMap<Identifier, TinyMaterial> materials = new ConcurrentHashMap<>();
-    private final TinyMaterial material = new TinyMaterial(1);
+    private final Map<Identifier, TinyMaterial> materials;
 
-    public TinyMaterial getMaterialById(Identifier id)
+    public TinyMaterialManager()
     {
-        return materials.get(id);
+        materials = new ConcurrentHashMap<>();
     }
 
-    public boolean registerMaterial(Identifier id, RenderMaterial material)
+    public TinyMaterial registerMaterial(Identifier identifier, TinyMaterial material)
     {
-        if (materials.containsKey(id))
-            return false;
-        return materials.put(id, new TinyMaterial(material.spriteDepth())) != null;
-    }
-
-    @Override
-    public RenderMaterial find()
-    {
+        materials.put(identifier, material);
         return material;
     }
 
-    @Override
-    public MaterialFinder clear()
+    public TinyMaterial getMaterialById(Identifier identifier)
     {
-        return this;
+        return materials.get(identifier);
     }
 
-    @Override
-    public MaterialFinder spriteDepth(int i)
+    public TinyMaterial makeMaterial(Sprite texture, Sprite normal, float specular, float emission)
     {
-        material.setSpriteDepth(i);
-        return this;
-    }
-
-    @Override
-    public MaterialFinder blendMode(int i, BlendMode blendMode)
-    {
-        return this;
-    }
-
-    @Override
-    public MaterialFinder disableColorIndex(int i, boolean b)
-    {
-        return this;
-    }
-
-    @Override
-    public MaterialFinder disableDiffuse(int i, boolean b)
-    {
-        return this;
-    }
-
-    @Override
-    public MaterialFinder disableAo(int i, boolean b)
-    {
-        return this;
-    }
-
-    @Override
-    public MaterialFinder emissive(int i, boolean b)
-    {
-        return this;
+        return new TinyMaterial(texture, normal, specular, emission, materials.size() + 1);
     }
 }

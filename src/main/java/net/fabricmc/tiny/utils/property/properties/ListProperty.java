@@ -3,13 +3,12 @@ package net.fabricmc.tiny.utils.property.properties;
 import net.fabricmc.tiny.utils.property.AbstractProperty;
 import net.fabricmc.tiny.utils.property.ICategory;
 
-import javax.annotation.Nullable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ListProperty extends AbstractProperty<Map<String, AbstractProperty<?>>> {
 
-    public ListProperty(ICategory category, Map<String, AbstractProperty<?>> value, @Nullable Event event)
+    public ListProperty(ICategory category, Map<String, AbstractProperty<?>> value, Event event)
     {
         super(category, null, value, event);
     }

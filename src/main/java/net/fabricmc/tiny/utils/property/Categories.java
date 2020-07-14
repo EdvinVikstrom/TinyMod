@@ -11,6 +11,7 @@ public final class Categories {
     public static final ICategory PERFORMANCE;
     public static final ICategory DETAILS;
     public static final ICategory OTHER;
+    public static final ICategory HIDDEN;
 
     public static List<ICategory> getCategories()
     {
@@ -32,6 +33,7 @@ public final class Categories {
         PERFORMANCE = ICategory.create("performance", 1, true);
         DETAILS = ICategory.create("details", 2, true);
         OTHER = ICategory.create("other", 3, true);
+        HIDDEN = ICategory.create("hidden", 4, false);
 
         CATEGORIES.add(GRAPHICS);
         CATEGORIES.add(PERFORMANCE);

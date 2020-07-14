@@ -27,17 +27,14 @@ public class FileUtils {
         return null;
     }
 
-    public static boolean dirContainsFile(File folder, String fileName)
+    public static boolean fileExists(String fileName)
     {
-        File[] files = folder.listFiles();
-        if (files == null)
-            return false;
-        for (File file : files)
-        {
-            if (file.getName().equals(fileName))
-                return true;
-        }
-        return false;
+        return new File(fileName).exists();
+    }
+
+    public static boolean containsFile(File folder, String fileName)
+    {
+        return new File(folder, fileName).exists();
     }
 
 }

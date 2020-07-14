@@ -1,24 +1,79 @@
 package net.fabricmc.tiny.render.tiny_renderer;
 
-import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
+import net.fabricmc.tiny.shader.ShaderProgram;
+import net.minecraft.client.texture.Sprite;
 
-public class TinyMaterial implements RenderMaterial {
+import static org.lwjgl.opengl.GL20.*;
 
-    private int spriteDepth;
+public class TinyMaterial {
 
-    public TinyMaterial(int spriteDepth)
+    private Sprite texture, normal;
+    private float specular, emission;
+    private final int index;
+
+    protected TinyMaterial(Sprite texture, Sprite normal, float specular, float emission, int index)
     {
-        this.spriteDepth = spriteDepth;
+        this.texture = texture;
+        this.normal = normal;
+        this.specular = specular;
+        this.emission = emission;
+        this.index = index;
     }
 
-    @Override
-    public int spriteDepth()
+    public void bind()
     {
-        return spriteDepth;
+        TinyRenderer renderer = TinyRenderer.INSTANCE;
+        ShaderProgram program = renderer.activeProgram();
+
+        program.uniform1i(renderer.getUniforms().TEX_SAMPLER, 0);
+        program.uniform1i(renderer.getUniforms().NOR_SAMPLER, 1);
+        program.uniform1f(renderer.getUniforms().SPECULAR, specular);
+        program.uniform1f(renderer.getUniforms().EMISSION, emission);
+        glBindTexture(GL_TEXTURE_2D, texture.getAtlas().getGlId());
     }
 
-    public void setSpriteDepth(int spriteDepth)
+    public Sprite texture()
     {
-        this.spriteDepth = spriteDepth;
+        return texture;
+    }
+    
+    public void texture(Sprite texture)
+    {
+        this.texture = texture;
+    }
+    
+    public Sprite normal()
+    {
+        return normal;
+    }
+    
+    public void normal(Sprite normal)
+    {
+        this.normal = normal;
+    }
+    
+    public float specular()
+    {
+        return specular;
+    }
+    
+    public void specular(float specular)
+    {
+        this.specular = specular;
+    }
+    
+    public float emission()
+    {
+        return emission;
+    }
+    
+    public void emission(float emission)
+    {
+        this.emission = emission;
+    }
+    
+    public int index()
+    {
+        return index;
     }
 }

@@ -1,6 +1,7 @@
 package net.fabricmc.tiny.event;
 
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.tiny.TinyMod;
 import net.fabricmc.tiny.imixin.IMinecraftClientMixin;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.BufferBuilderStorage;
@@ -97,12 +98,14 @@ public class RenderEvent implements HudRenderCallback {
     }
 
     public interface Event {
+        default void RenderEvent_onInit(MinecraftClient client) { };
         default void RenderEvent_onRender(MinecraftClient client) { };
         default void RenderEvent_onWorldRender(WorldRendererContext context) { }
         default void RenderEvent_onHudRender(MatrixStack matrixStack, float v) { }
     }
 
     private final List<Event> events;
+    private boolean init = false;
 
     public RenderEvent()
     {
@@ -117,6 +120,8 @@ public class RenderEvent implements HudRenderCallback {
     public void registerEvent(Event... events)
     {
         this.events.addAll(Arrays.asList(events));
+        if (init)
+            TinyMod.LOGGER.warn("registered RenderEvent after init");
     }
 
     public void unregisterEvent(Event... events)
@@ -126,6 +131,12 @@ public class RenderEvent implements HudRenderCallback {
 
     public void onRender(MinecraftClient client)
     {
+        if (!init)
+        {
+            for (Event event : events)
+                event.RenderEvent_onInit(client);
+            init = true;
+        }
         for (Event event : events)
             event.RenderEvent_onRender(client);
     }

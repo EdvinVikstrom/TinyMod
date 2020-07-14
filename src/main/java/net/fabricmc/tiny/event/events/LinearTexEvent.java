@@ -18,8 +18,8 @@ public class LinearTexEvent implements InitEvent.Event {
 
     public void update()
     {
-        boolean linear = Config.LINEAR_TEXTURES.get();
-        TextureFilterHelper.setAllSprites(linear ? GL11.GL_LINEAR : GL11.GL_NEAREST);
+        //boolean linear = Config.LINEAR_TEXTURES.get();
+        //TextureFilterHelper.setAllSprites(linear ? GL11.GL_LINEAR : GL11.GL_NEAREST);
     }
 
 }

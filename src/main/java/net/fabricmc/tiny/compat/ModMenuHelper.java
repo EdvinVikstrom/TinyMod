@@ -1,4 +1,4 @@
-package net.fabricmc.tiny.helper;
+package net.fabricmc.tiny.compat;
 
 import io.github.prospector.modmenu.api.ConfigScreenFactory;
 import io.github.prospector.modmenu.api.ModMenuApi;

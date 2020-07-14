@@ -1,5 +1,6 @@
 package net.fabricmc.tiny.event;
 
+import net.fabricmc.tiny.TinyMod;
 import net.minecraft.client.MinecraftClient;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class InitEvent {
     }
 
     private final List<Event> events;
+    private boolean init = false;
 
     public InitEvent()
     {
@@ -24,6 +26,8 @@ public class InitEvent {
     public void registerEvent(Event... events)
     {
         this.events.addAll(Arrays.asList(events));
+        if (init)
+            TinyMod.LOGGER.warn("registered InitEvent after init");
     }
 
     public void unregisterEvent(Event... events)
@@ -35,6 +39,7 @@ public class InitEvent {
     {
         for (Event event : events)
             event.InitEvent_onInit(client);
+        init = true;
     }
 
 }

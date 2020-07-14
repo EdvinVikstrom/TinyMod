@@ -1,10 +1,10 @@
-package net.fabricmc.tiny.render.world;
+package net.fabricmc.tiny.render.tiny_renderer.world;
 
+import net.fabricmc.tiny.render.api.MeshQuad;
+import net.fabricmc.tiny.render.api.utils.MeshBuilder;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.color.block.BlockColors;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.BlockModels;
 import net.minecraft.client.render.model.BakedModel;
@@ -12,6 +12,7 @@ import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -34,28 +35,28 @@ public class TinyBlockBuilder {
         this.blockColors = blockColors;
     }
 
-    public void buildBlock(WorldChunk chunk, BlockPos pos, BlockState state, MatrixStack matrices, VertexConsumer vertices)
+    public void buildBlock(MatrixStack matrixStack, WorldChunk chunk, BlockPos globalPos, BlockPos localPos, BlockState state, MeshBuilder builder)
     {
-        BlockState north = world.getBlockState(pos.north());
-        BlockState south = world.getBlockState(pos.south());
-        BlockState west = world.getBlockState(pos.west());
-        BlockState east = world.getBlockState(pos.east());
-        BlockState bottom = world.getBlockState(pos.down());
-        BlockState top = world.getBlockState(pos.up());
+        BlockState north = chunk.getBlockState(localPos.north());
+        BlockState south = chunk.getBlockState(localPos.south());
+        BlockState west = chunk.getBlockState(localPos.west());
+        BlockState east = chunk.getBlockState(localPos.east());
+        BlockState bottom = chunk.getBlockState(localPos.down());
+        BlockState top = chunk.getBlockState(localPos.up());
         ModelIdentifier modelIdentifier = BlockModels.getModelId(state);
         BakedModel blockModel = modelManager.getModel(modelIdentifier);
-        int light = WorldRenderer.getLightmapCoordinates(world, state, pos);
-        buildBlockModel(blockModel, pos, state, matrices, vertices,
-                north.isAir(),
-                south.isAir(),
-                west.isAir(),
-                east.isAir(),
-                bottom.isAir(),
-                top.isAir(),
+        int light = WorldRenderer.getLightmapCoordinates(world, state, globalPos);
+        buildBlockModel(matrixStack, blockModel, localPos, state, builder,
+                north.isAir() || north.getRenderType() == BlockRenderType.MODEL,
+                south.isAir() || south.getRenderType() == BlockRenderType.MODEL,
+                west.isAir() || west.getRenderType() == BlockRenderType.MODEL,
+                east.isAir() || east.getRenderType() == BlockRenderType.MODEL,
+                bottom.isAir() || bottom.getRenderType() == BlockRenderType.MODEL,
+                top.isAir() || top.getRenderType() == BlockRenderType.MODEL,
                 light);
     }
 
-    private void buildBlockModel(BakedModel blockModel, BlockPos pos, BlockState state, MatrixStack matrices, VertexConsumer vertices, boolean northFace, boolean southFace, boolean westFace, boolean eastFace, boolean bottomFace, boolean topFace, int light)
+    private void buildBlockModel(MatrixStack matrixStack, BakedModel blockModel, BlockPos pos, BlockState state, MeshBuilder builder, boolean northFace, boolean southFace, boolean westFace, boolean eastFace, boolean bottomFace, boolean topFace, int light)
     {
         for (Direction direction : Direction.values())
         {
@@ -67,11 +68,11 @@ public class TinyBlockBuilder {
             else if (direction == Direction.UP && !topFace) continue;
 
             List<BakedQuad> quads = blockModel.getQuads(state, direction, random);
-            renderQuads(quads, pos, state, light, matrices, vertices);
+            renderQuads(matrixStack.peek(), quads, pos, state, light, builder);
         }
     }
 
-    private void renderQuads(List<BakedQuad> quads, BlockPos pos, BlockState state, int light, MatrixStack matrices, VertexConsumer vertices)
+    private void renderQuads(MatrixStack.Entry matrixEntry, List<BakedQuad> quads, BlockPos pos, BlockState state, int light, MeshBuilder builder)
     {
         for (BakedQuad quad : quads)
         {
@@ -85,13 +86,7 @@ public class TinyBlockBuilder {
                 g = ((color >> 8) & 0xFF) / 255.0F;
                 b = (color & 0xFF) / 255.0F;
             }
-
-            float brightness = world.getBrightness(quad.getFace(), quad.hasShade());
-            vertices.quad(matrices.peek(), quad, new float[]{
-                    brightness, brightness, brightness, brightness
-            }, r, g, b, new int[]{
-                    light, light, light, light
-            }, OverlayTexture.DEFAULT_UV, true);
+            builder.quad(new MeshQuad(matrixEntry, quad, r, g, b, 1.0F));
         }
     }
 
