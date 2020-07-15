@@ -61,6 +61,8 @@ public class TinyMaterialManager implements ClientEvent.Event {
 
     public boolean loadMaterials(MinecraftClient client)
     {
+        if (true) // TODO: fix sprite nullptr
+            return false;
         for (Identifier key : preMaterials)
         {
             if (materials.containsKey(key))

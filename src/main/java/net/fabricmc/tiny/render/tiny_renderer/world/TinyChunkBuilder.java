@@ -14,14 +14,12 @@ import net.minecraft.world.chunk.WorldChunk;
 
 public class TinyChunkBuilder {
 
-    private final MinecraftClient client;
     private final ClientWorld world;
 
     private final TinyBlockBuilder blockBuilder;
 
     public TinyChunkBuilder(MinecraftClient client, ClientWorld world)
     {
-        this.client = client;
         this.world = world;
         blockBuilder = new TinyBlockBuilder(world, client.getBakedModelManager(), client.getBlockColors());
     }

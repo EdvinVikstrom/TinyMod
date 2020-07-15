@@ -22,6 +22,8 @@
     "gui.LevelLoadingScreenMixin",
 
     "world.SkyPropertiesMixin",
+    "world.ClientChunkManagerMixin",
+    "world.ClientChunkManager$ClientChunkMap",
 
     "MinecraftClientMixin"
   ],

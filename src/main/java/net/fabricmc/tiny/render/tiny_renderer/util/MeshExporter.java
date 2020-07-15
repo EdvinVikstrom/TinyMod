@@ -1,17 +1,26 @@
 package net.fabricmc.tiny.render.tiny_renderer.util;
 
 import net.fabricmc.tiny.render.tiny_renderer.TinyMesh;
+import net.fabricmc.tiny.render.tiny_renderer.util.format.ColladaMeshExporter;
+import net.fabricmc.tiny.render.tiny_renderer.util.format.ObjMeshExporter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class MeshExporter {
 
+    private final Format format;
     private final List<TinyMesh> meshes;
 
-    public MeshExporter()
+    public MeshExporter(Format format)
     {
+        this.format = format;
         meshes = new ArrayList<>();
+    }
+
+    public Format getFormat()
+    {
+        return format;
     }
 
     public void append(TinyMesh mesh)
@@ -19,7 +28,7 @@ public final class MeshExporter {
         meshes.add(mesh);
     }
 
-    public void exportMesh(String filepath, Format format)
+    public void exportMeshes(String filepath)
     {
         AbstractMeshExporter exporter = null;
         if (format == Format.COLLADA)

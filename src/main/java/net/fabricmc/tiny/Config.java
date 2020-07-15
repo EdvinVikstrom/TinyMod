@@ -53,6 +53,9 @@ public class Config {
     public static final EnumProperty SCREENSHOT_RESOLUTION = new EnumProperty(Categories.OTHER, 0, new String[]{
             "disabled", "2K", "4K", "8K", "12K", "16K", "24K", "32K", "48K", "64K"
     }, null);
+    public static final EnumProperty MATH_STYLE = new EnumProperty(Categories.OTHER, 0, new String[]{
+            "standard", "excel"
+    }, null);
     public static final BooleanProperty OPENGL_INFO = new BooleanProperty(Categories.OTHER, false, null);
 
     public static final FloatProperty ACTIVE_SHADER_PACK = new FloatProperty(Categories.HIDDEN, -1D, -1, Short.MAX_VALUE, 1.0F, null);
@@ -88,6 +91,7 @@ public class Config {
         properties.put("showCoords", SHOW_COORDS);
         properties.put("showCollision", SHOW_COLLISION);
         properties.put("screenshotResolution", SCREENSHOT_RESOLUTION);
+        properties.put("mathStyle", MATH_STYLE);
         properties.put("openglInfo", OPENGL_INFO);
 
         properties.put("activeShaderPack", ACTIVE_SHADER_PACK);

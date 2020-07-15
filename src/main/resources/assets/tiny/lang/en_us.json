@@ -43,6 +43,7 @@
     "config.screenshotResolution.32K": "32K",
     "config.screenshotResolution.48K": "48K",
     "config.screenshotResolution.64K": "64K",
+  "config.mathStyle": "Math Style",
   "config.showCollision": "Show Collision",
   "config.outlines": "Outlines",
   "config.debugGraph": "Show Graph in F3",
@@ -85,5 +86,10 @@
 
   "mesh_exporter.title": "Mesh Exporter",
   "mesh_exporter.mesh_name": "Mesh Name",
-  "mesh_exporter.export": "Export"
+  "mesh_exporter.export": "Export",
+
+  "text.error": "Error",
+  "text.propertyUpdate": "%s: %s",
+  "text.true": "true",
+  "text.false": "false"
 }

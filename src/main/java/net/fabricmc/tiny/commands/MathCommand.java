@@ -6,6 +6,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import io.github.cottonmc.clientcommands.CottonClientCommandSource;
+import net.fabricmc.tiny.utils.CommonTexts;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 
@@ -24,8 +25,16 @@ public class MathCommand {
 
     private static int execute(CommandContext<CottonClientCommandSource> ctx)
     {
+        DoubleEvaluator evaluator = new DoubleEvaluator();
         String expr = StringArgumentType.getString(ctx, "expr");
-        double result = new DoubleEvaluator().evaluate(expr);
+        double result;
+        try {
+            result = evaluator.evaluate(expr);
+        }catch (Exception ignored)
+        {
+            ctx.getSource().sendFeedback(new LiteralText(Formatting.RED.toString()).append(CommonTexts.ERROR_TEXT), false);
+            return 0;
+        }
         ctx.getSource().sendFeedback(new LiteralText(Formatting.GREEN + "= " + result), false);
         return Command.SINGLE_SUCCESS;
     }

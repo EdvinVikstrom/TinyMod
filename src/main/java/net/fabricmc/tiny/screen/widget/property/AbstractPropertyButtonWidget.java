@@ -1,4 +1,4 @@
-package net.fabricmc.tiny.screen.widget;
+package net.fabricmc.tiny.screen.widget.property;
 
 import net.fabricmc.tiny.utils.property.AbstractProperty;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
