@@ -5,16 +5,15 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
-import net.minecraft.server.command.ServerCommandSource;
+import io.github.cottonmc.clientcommands.CottonClientCommandSource;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static io.github.cottonmc.clientcommands.ArgumentBuilders.*;
 
 public class MathCommand {
 
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher, boolean dedicated)
+    public static void register(CommandDispatcher<CottonClientCommandSource> dispatcher)
     {
         dispatcher.register(
                 literal("math").then(
@@ -23,7 +22,7 @@ public class MathCommand {
         );
     }
 
-    private static int execute(CommandContext<ServerCommandSource> ctx)
+    private static int execute(CommandContext<CottonClientCommandSource> ctx)
     {
         String expr = StringArgumentType.getString(ctx, "expr");
         double result = new DoubleEvaluator().evaluate(expr);

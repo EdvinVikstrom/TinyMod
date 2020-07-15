@@ -1,9 +1,9 @@
 {
   "key.zoom": "Zoom",
   "key.tiny_mod.config": "Tiny Config",
+  "key.tiny_mod.export_mesh": "Export Mesh",
 
   "config.title": "Config",
-  "config.title.info": "Config %s/%s",
   "config.search": "Search",
 
   "config.category": "Category: %s",
@@ -20,17 +20,17 @@
 
   "config.other": "Other",
 
-  "config.zoomFactor": "Zoom Factor: %d",
+  "config.zoomFactor": "Zoom Factor",
   "config.chatEmotes": "Chat Emotes",
   "config.debugPieColors": "Debug Colors",
-  "config.debugPieBackgroundOpacity": "Debug Opacity: %d",
-  "config.debugPieTextOpacity": "Debug Text Opacity: %d",
+  "config.debugPieBackgroundOpacity": "Debug Opacity",
+  "config.debugPieTextOpacity": "Debug Text Opacity",
   "config.debugColors": "Debug Colors",
   "config.debugHud": "Debug Hud",
     "config.showFPS": "Show FPS",
     "config.showTPS": "Show TPS",
     "config.showCoords": "Show Coordinates",
-  "config.screenshotResolution": "Screenshot Size: %s",
+  "config.screenshotResolution": "Screenshot Size",
     "config.screenshotResolution.disabled": "default",
     "config.screenshotResolution.2K": "2K",
     "config.screenshotResolution.4K": "4K",
@@ -58,6 +58,8 @@
       "config.renderFog.far_value": "Far Amount",
       "config.renderFog.near_value": "Near Amount",
 
+  "config.betterGrass": "Better Grass",
+  "config.connectedTextures": "Connected Textures",
   "config.textureAnimation": "Animated Textures",
   "config.waterAnimation": "Water Animation",
   "config.lavaAnimation": "Lava Animation",
@@ -65,7 +67,7 @@
   "config.blockAnimation": "Block Animation",
   "config.playerAnimation": "Player Animation",
   "config.entityAnimation": "Entity Animation",
-  "config.droppedItemRendering": "Item Rendering: %s",
+  "config.droppedItemRendering": "Item Rendering",
     "config.droppedItemRendering.default": "default",
     "config.droppedItemRendering.simple": "simple",
     "config.droppedItemRendering.fancy": "fancy",
@@ -73,23 +75,15 @@
 
   "config.bedrockFog": "Bedrock Fog",
 
-  "config.cloudHeight": "Cloud Height: %s",
+  "config.cloudHeight": "Cloud Height",
   "config.renderStars": "Stars",
   "config.renderWeather": "Weather",
   "config.renderSky": "Sky",
-  "config.connectedTextures": "Connected Textures",
-
-  "config.fastMath": "Fast Math",
-  "config.optimizedInventory": "Optimized Inventory",
-
-  "config.dynamicLighting": "Dynamic Lighting",
-  "config.bloom": "Bloom",
-  "config.betterGrass": "Better Grass",
-  "config.linear": "Linear Textures",
-  "config.tinyRenderer": "Tiny Renderer",
-
-  "config.fixedInventory": "Fixed Inventory",
 
   "text.error.gl4": "OpenGL 4.0.0 not supported",
-  "text.error.gl4.info": "Using vanilla renderer"
+  "text.error.gl4.info": "Using vanilla renderer",
+
+  "mesh_exporter.title": "Mesh Exporter",
+  "mesh_exporter.mesh_name": "Mesh Name",
+  "mesh_exporter.export": "Export"
 }

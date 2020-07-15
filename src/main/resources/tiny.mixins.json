@@ -9,14 +9,13 @@
     "other.ScreenshotUtilsMixin",
     "other.TakeScreenshotMixin",
 
-    "math.MathHelperMixin",
-
     "render.ZoomRenderingMixin",
     "render.SpriteAtlasTextureMixin",
     "render.SpriteAtlasTexture$DataMixin",
     "render.WorldRenderingMixin",
     "render.ItemEntityRenderingMixin",
     "render.BakedQuadMixin",
+    "render.SpriteMixin",
 
     "gui.DebugHudMixin",
     "gui.VideoOptionsScreenMixin",

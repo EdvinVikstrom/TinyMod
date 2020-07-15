@@ -1,6 +1,8 @@
-package net.fabricmc.tiny.render.tiny_renderer_wip;
+package net.fabricmc.tiny.render.tiny_renderer;
 
 import net.fabricmc.tiny.Config;
+import net.fabricmc.tiny.event.ClientEvent;
+import net.fabricmc.tiny.event.ExecuteEvent;
 import net.fabricmc.tiny.event.RenderEvent;
 import net.fabricmc.tiny.shader.IShaderPack;
 import net.fabricmc.tiny.shader.ShaderPackManager;
@@ -86,6 +88,10 @@ public class TinyRenderer implements RenderEvent.Event {
     public void RenderEvent_onInit(MinecraftClient client)
     {
         ShaderPackManager.INSTANCE.init();
+        ExecuteEvent.INSTANCE.execute(() -> {
+            ClientEvent.INSTANCE.registerEvent(materialManager);
+        });
+        materialManager.init(client);
         loadRenderer();
     }
 }

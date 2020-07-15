@@ -1,5 +1,8 @@
 package net.fabricmc.tiny;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import net.fabricmc.tiny.utils.FileUtils;
 import net.fabricmc.tiny.utils.property.AbstractProperty;
 import net.fabricmc.tiny.utils.property.Categories;
@@ -14,12 +17,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Config {
 
-    private static final String CONFIG_FILE = "./tiny-mod.txt";
+    private static final String CONFIG_FILE = "./tiny-config.json";
 
     //public static final BooleanProperty LINEAR_TEXTURES = new BooleanProperty(Categories.GRAPHICS, false, null);
-    public static final BooleanProperty TINY_RENDERER = new BooleanProperty(Categories.GRAPHICS, false, null);
-
-    public static final BooleanProperty FAST_MATH = new BooleanProperty(Categories.PERFORMANCE, false, null);
 
     public static final FloatProperty CLOUD_HEIGHT = new FloatProperty(Categories.DETAILS, 100D, 80D, 500D, 1.0F, null);
     public static final BooleanProperty BETTER_GRASS = new BooleanProperty(Categories.DETAILS, false, null);
@@ -62,19 +62,10 @@ public class Config {
 
     private static final Map<String, AbstractProperty<?>> properties = new LinkedHashMap<>();
     static {
-
         {
-            TINY_RENDERER.putFlag(AbstractProperty.FLAG_DEPRECATED);
-            FAST_MATH.putFlag(AbstractProperty.FLAG_DEPRECATED);
             RENDER_FOG.put("renderFog.far_value", RENDER_FOG$FAR_VALUE);
             RENDER_FOG.put("renderFog.near_value", RENDER_FOG$NEAR_VALUE);
         }
-
-        //properties.put("linearTextures", LINEAR_TEXTURES);
-        properties.put("tinyRenderer", TINY_RENDERER);
-
-        properties.put("fastMath", FAST_MATH);
-
         properties.put("cloudHeight", CLOUD_HEIGHT);
         properties.put("betterGrass", BETTER_GRASS);
         properties.put("renderStars", RENDER_STARS);
@@ -144,11 +135,16 @@ public class Config {
 
     public static void write()
     {
-        StringBuilder builder = new StringBuilder();
-        Set<String> keys = properties.keySet();
-        for (String key : keys)
-            builder.append(key).append(" ").append(properties.get(key).asString()).append("\n");
-        FileUtils.write(CONFIG_FILE, builder.toString().getBytes());
+        JsonObject jsonObject = new JsonObject();
+        properties.forEach((key, property) -> {
+            if (property instanceof FloatProperty)
+                jsonObject.addProperty(key, ((FloatProperty) property).get());
+            else if (property instanceof BooleanProperty)
+                jsonObject.addProperty(key, ((BooleanProperty) property).get());
+            else
+                jsonObject.addProperty(key, property.asString());
+        });
+        FileUtils.write(CONFIG_FILE, jsonObject.toString().getBytes());
     }
 
     public static void load()
@@ -159,14 +155,19 @@ public class Config {
             byte[] data = FileUtils.read(CONFIG_FILE);
             if (data != null)
             {
-                String[] lines = new String(data).split("\n");
-                for (String line : lines)
+                JsonParser jsonParser = new JsonParser();
+                JsonObject jsonObject = jsonParser.parse(new String(data)).getAsJsonObject();
+                for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet())
                 {
-                    String[] args = line.split(" ");
-                    if (args.length < 2)
+                    AbstractProperty<?> property = properties.get(entry.getKey());
+                    if (property == null)
                         continue;
-                    if (properties.containsKey(args[0]))
-                        properties.get(args[0]).fromString(args[1]);
+                    if (property instanceof FloatProperty)
+                        ((FloatProperty) property).set(entry.getValue().getAsDouble());
+                    else if (property instanceof BooleanProperty)
+                        ((BooleanProperty) property).set(entry.getValue().getAsBoolean());
+                    else
+                        property.fromString(entry.getValue().getAsString());
                 }
             }
         }

@@ -1,4 +1,4 @@
-package net.fabricmc.tiny.render.tiny_renderer_wip.world;
+package net.fabricmc.tiny.render.tiny_renderer.world;
 
 import net.fabricmc.tiny.render.api.MeshQuad;
 import net.fabricmc.tiny.render.api.utils.MeshBuilder;
@@ -46,12 +46,12 @@ public class TinyBlockBuilder {
         BakedModel blockModel = modelManager.getModel(modelIdentifier);
         int light = WorldRenderer.getLightmapCoordinates(world, state, globalPos);
         buildBlockModel(matrixStack, blockModel, localPos, state, builder,
-                north.isAir() || north.getRenderType() == BlockRenderType.MODEL,
-                south.isAir() || south.getRenderType() == BlockRenderType.MODEL,
-                west.isAir() || west.getRenderType() == BlockRenderType.MODEL,
-                east.isAir() || east.getRenderType() == BlockRenderType.MODEL,
-                bottom.isAir() || bottom.getRenderType() == BlockRenderType.MODEL,
-                top.isAir() || top.getRenderType() == BlockRenderType.MODEL,
+                north.isAir() || north.getRenderType() == BlockRenderType.MODEL || state.getRenderType() == BlockRenderType.MODEL,
+                south.isAir() || south.getRenderType() == BlockRenderType.MODEL || state.getRenderType() == BlockRenderType.MODEL,
+                west.isAir() || west.getRenderType() == BlockRenderType.MODEL || state.getRenderType() == BlockRenderType.MODEL,
+                east.isAir() || east.getRenderType() == BlockRenderType.MODEL || state.getRenderType() == BlockRenderType.MODEL,
+                bottom.isAir() || bottom.getRenderType() == BlockRenderType.MODEL || state.getRenderType() == BlockRenderType.MODEL,
+                top.isAir() || top.getRenderType() == BlockRenderType.MODEL || state.getRenderType() == BlockRenderType.MODEL,
                 light);
     }
 

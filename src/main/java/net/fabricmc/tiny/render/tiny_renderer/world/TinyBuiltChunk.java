@@ -1,6 +1,6 @@
-package net.fabricmc.tiny.render.tiny_renderer_wip.world;
+package net.fabricmc.tiny.render.tiny_renderer.world;
 
-import net.fabricmc.tiny.render.tiny_renderer_wip.TinyMesh;
+import net.fabricmc.tiny.render.tiny_renderer.TinyMesh;
 import net.minecraft.util.math.ChunkPos;
 
 public class TinyBuiltChunk {

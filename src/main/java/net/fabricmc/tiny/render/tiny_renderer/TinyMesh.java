@@ -1,4 +1,4 @@
-package net.fabricmc.tiny.render.tiny_renderer_wip;
+package net.fabricmc.tiny.render.tiny_renderer;
 
 import net.fabricmc.tiny.render.api.MeshQuad;
 import net.fabricmc.tiny.render.api.Vertex;
@@ -56,12 +56,19 @@ public class TinyMesh {
 
     public static TinyMesh build(Identifier identifier, int glID, List<MeshQuad> quads)
     {
-        IntBuffer indices = BufferUtils.createIntBuffer((quads.size() * 6) * 3);
+        IntBuffer indices = BufferUtils.createIntBuffer(quads.size() + ((quads.size() * 4) * 3));
         List<TinyMaterial> materials = new ArrayList<>();
         Map<Vertex, Integer> indexMap = new LinkedHashMap<>();
         int index = 0;
         for (MeshQuad quad : quads)
         {
+            int materialIndex;
+            if (!materials.contains(quad.material))
+            {
+                materialIndex = materials.size();
+                materials.add(quad.material);
+            }else
+                materialIndex = materials.indexOf(quad.material);
             for (Vertex vertex : quad.vertices)
             {
                 if (indexMap.containsKey(vertex))
@@ -69,16 +76,18 @@ public class TinyMesh {
                     indices.put(indexMap.get(vertex));
                     indices.put(indexMap.get(vertex));
                     indices.put(indexMap.get(vertex));
+                    //indices.put(indexMap.get(vertex));
                 }else
                 {
                     indexMap.put(vertex, index);
                     indices.put(index);
                     indices.put(index);
                     indices.put(index);
+                    //indices.put(index);
                     index++;
                 }
             }
-            materials.add(quad.material);
+            indices.put(materialIndex);
         }
         FloatBuffer vertices = BufferUtils.createFloatBuffer(indexMap.size() * Vertex.SIZE);
         indexMap.forEach((vertex, integer) -> vertex.put(vertices));

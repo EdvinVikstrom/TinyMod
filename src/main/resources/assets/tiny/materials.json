@@ -1,0 +1,20 @@
+{
+  "minecraft:block/diamond_block": {
+    "specular": 0.877,
+    "emission": 0.0,
+    "roughness": 0.15,
+    "texture": "minecraft:block/diamond_block",
+    "color": [
+      1.0, 1.0, 1.0, 1.0
+    ]
+  },
+  "minecraft:block/lantern": {
+    "specular": 0.5,
+    "emission": 2.7,
+    "roughness": 0.48,
+    "texture": "minecraft:block/lantern",
+    "color": [
+      1.0, 1.0, 1.0, 1.0
+    ]
+  }
+}

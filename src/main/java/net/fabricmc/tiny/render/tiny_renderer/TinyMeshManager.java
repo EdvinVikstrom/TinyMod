@@ -1,4 +1,4 @@
-package net.fabricmc.tiny.render.tiny_renderer_wip;
+package net.fabricmc.tiny.render.tiny_renderer;
 
 import net.fabricmc.tiny.render.api.MeshQuad;
 import net.fabricmc.tiny.render.api.Vertex;
@@ -68,29 +68,37 @@ public class TinyMeshManager {
         return mesh;
     }
 
-    public void renderMesh(TinyMesh mesh, Matrix4f matrix)
+    public void bindMesh(TinyMesh mesh)
     {
-        glPushMatrix();
         TinyRenderer.INSTANCE.useProgram(TinyRenderer.INSTANCE.meshProgram);
-        TinyRenderer.INSTANCE.activeProgram().uniformMatrix4f(TinyRenderer.INSTANCE.getUniforms().MODEL_MATRIX, matrix);
 
-        mesh.materials().get(0).bind();
+        //mesh.materials().get(0).bind();
         glBindVertexArray(mesh.glID());
-        glLoadIdentity();
 
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
         glEnableVertexAttribArray(2);
         glEnableVertexAttribArray(3);
+    }
 
-        glDrawElements(GL_TRIANGLES, mesh.vertices().capacity(), GL_UNSIGNED_INT, 0L);
-
+    public void unbindMesh()
+    {
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
         glDisableVertexAttribArray(2);
         glDisableVertexAttribArray(3);
 
         glBindVertexArray(0);
+    }
+
+    public void renderMesh(TinyMesh mesh, Matrix4f matrix)
+    {
+        glPushMatrix();
+        glLoadIdentity();
+
+        TinyRenderer.INSTANCE.activeProgram().uniformMatrix4f(TinyRenderer.INSTANCE.getUniforms().MODEL_MATRIX, matrix);
+        glDrawElements(GL_TRIANGLES, mesh.vertices().capacity(), GL_UNSIGNED_INT, 0L);
+
         glPopMatrix();
     }
 }

@@ -42,6 +42,7 @@ public class TickEvent implements ClientTickCallback {
     @Override
     public void tick(MinecraftClient client)
     {
+        ExecuteEvent.INSTANCE.run();
         if ((System.currentTimeMillis() / 1000L) > (lastTime / 1000L))
         {
             lastTime = System.currentTimeMillis();
