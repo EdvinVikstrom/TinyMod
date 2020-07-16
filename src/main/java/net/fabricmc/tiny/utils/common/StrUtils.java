@@ -1,4 +1,4 @@
-package net.fabricmc.tiny.utils;
+package net.fabricmc.tiny.utils.common;
 
 public class StrUtils {
 

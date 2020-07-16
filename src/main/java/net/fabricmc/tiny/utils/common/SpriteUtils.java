@@ -1,4 +1,4 @@
-package net.fabricmc.tiny.utils;
+package net.fabricmc.tiny.utils.common;
 
 import net.fabricmc.tiny.imixin.ISpriteAtlasTexture;
 import net.fabricmc.tiny.imixin.ISpriteAtlasTexture$Data;

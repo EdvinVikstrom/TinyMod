@@ -1,6 +1,4 @@
-package net.fabricmc.tiny.utils.format;
-
-import net.fabricmc.tiny.utils.FileUtils;
+package net.fabricmc.tiny.utils.reading;
 
 import java.io.File;
 import java.nio.ByteBuffer;

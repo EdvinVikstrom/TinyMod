@@ -1,4 +1,4 @@
-package net.fabricmc.tiny.utils;
+package net.fabricmc.tiny.utils.reading;
 
 import java.io.*;
 

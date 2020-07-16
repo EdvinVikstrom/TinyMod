@@ -7,7 +7,7 @@ import net.fabricmc.tiny.screen.widget.property.AbstractPropertyButtonWidget;
 import net.fabricmc.tiny.screen.widget.property.BooleanPropertyButtonWidget;
 import net.fabricmc.tiny.screen.widget.property.EnumPropertyButtonWidget;
 import net.fabricmc.tiny.screen.widget.property.FloatPropertyButtonWidget;
-import net.fabricmc.tiny.utils.StrUtils;
+import net.fabricmc.tiny.utils.common.StrUtils;
 import net.fabricmc.tiny.utils.property.AbstractProperty;
 import net.fabricmc.tiny.utils.property.Categories;
 import net.fabricmc.tiny.utils.property.ICategory;

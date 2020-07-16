@@ -6,7 +6,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import io.github.cottonmc.clientcommands.CottonClientCommandSource;
-import net.fabricmc.tiny.utils.CommonTexts;
+import net.fabricmc.tiny.utils.common.CommonTexts;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 

@@ -1,10 +1,7 @@
 package net.fabricmc.tiny.event.events;
 
-import net.fabricmc.tiny.Config;
 import net.fabricmc.tiny.event.InitEvent;
-import net.fabricmc.tiny.utils.TextureFilterHelper;
 import net.minecraft.client.MinecraftClient;
-import org.lwjgl.opengl.GL11;
 
 public class LinearTexEvent implements InitEvent.Event {
 

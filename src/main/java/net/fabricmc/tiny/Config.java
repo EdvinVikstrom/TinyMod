@@ -1,7 +1,8 @@
 package net.fabricmc.tiny;
 
 import com.google.gson.*;
-import net.fabricmc.tiny.utils.FileUtils;
+import net.fabricmc.tiny.utils.common.CaseUtils;
+import net.fabricmc.tiny.utils.reading.FileUtils;
 import net.fabricmc.tiny.utils.property.AbstractProperty;
 import net.fabricmc.tiny.utils.property.Categories;
 import net.fabricmc.tiny.utils.property.ICategory;
@@ -74,8 +75,8 @@ public class Config {
         properties.put("debugTextOpacity", DEBUG_TEXT_OPACITY);
         properties.put("debugOpacity", DEBUG_OPACITY);
         properties.put("debugGraph", DEBUG_GRAPH);
-        properties.put("showFPS", SHOW_FPS);
-        properties.put("showTPS", SHOW_TPS);
+        properties.put("showFps", SHOW_FPS);
+        properties.put("showTps", SHOW_TPS);
         properties.put("showCoords", SHOW_COORDS);
         properties.put("showCollision", SHOW_COLLISION);
         properties.put("creativeFireOverlay", CREATIVE_FIRE_OVERLAY);
@@ -128,6 +129,7 @@ public class Config {
     private static void writeProperties(Map<String, AbstractProperty<?>> properties, JsonObject jsonObject)
     {
         properties.forEach((key, property) -> {
+            key = CaseUtils.toSnakeCase(key, '_');
             if (property instanceof FloatProperty)
                 jsonObject.addProperty(key, ((FloatProperty) property).get());
             else if (property instanceof BooleanProperty)
@@ -159,7 +161,7 @@ public class Config {
                 JsonObject jsonObject = jsonParser.parse(new String(data)).getAsJsonObject();
                 for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet())
                 {
-                    AbstractProperty<?> property = properties.get(entry.getKey());
+                    AbstractProperty<?> property = properties.get(CaseUtils.toCamelCase(entry.getKey(), '_'));
                     if (property == null)
                         continue;
                     if (property instanceof FloatProperty)

@@ -7,7 +7,7 @@ import net.fabricmc.tiny.Constants;
 import net.fabricmc.tiny.shader.GLSLShader;
 import net.fabricmc.tiny.shader.IShaderPack;
 import net.fabricmc.tiny.shader.ShaderProgram;
-import net.fabricmc.tiny.utils.FileUtils;
+import net.fabricmc.tiny.utils.reading.FileUtils;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.EnumUtils;
 

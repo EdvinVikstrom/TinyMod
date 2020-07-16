@@ -3,8 +3,8 @@ package net.fabricmc.tiny.render.tiny_renderer.util.format;
 import net.fabricmc.tiny.render.tiny_renderer.TinyMaterial;
 import net.fabricmc.tiny.render.tiny_renderer.TinyMesh;
 import net.fabricmc.tiny.render.tiny_renderer.util.AbstractMeshExporter;
-import net.fabricmc.tiny.utils.FileUtils;
-import net.fabricmc.tiny.utils.SpriteUtils;
+import net.fabricmc.tiny.utils.reading.FileUtils;
+import net.fabricmc.tiny.utils.common.SpriteUtils;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 
 import java.io.File;

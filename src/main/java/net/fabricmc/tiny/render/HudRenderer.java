@@ -3,7 +3,7 @@ package net.fabricmc.tiny.render;
 import net.fabricmc.tiny.Config;
 import net.fabricmc.tiny.event.RenderEvent;
 import net.fabricmc.tiny.event.TickEvent;
-import net.fabricmc.tiny.utils.ColorHelper;
+import net.fabricmc.tiny.utils.common.ColorHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;

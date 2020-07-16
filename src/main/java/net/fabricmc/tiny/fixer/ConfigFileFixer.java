@@ -3,7 +3,7 @@ package net.fabricmc.tiny.fixer;
 import net.fabricmc.tiny.Config;
 import net.fabricmc.tiny.event.RenderEvent;
 import net.fabricmc.tiny.event.TickEvent;
-import net.fabricmc.tiny.utils.FileUtils;
+import net.fabricmc.tiny.utils.reading.FileUtils;
 import net.fabricmc.tiny.utils.property.AbstractProperty;
 
 import java.io.File;

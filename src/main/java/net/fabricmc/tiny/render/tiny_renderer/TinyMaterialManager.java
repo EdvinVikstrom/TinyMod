@@ -8,7 +8,7 @@ import net.fabricmc.tiny.Constants;
 import net.fabricmc.tiny.TinyMod;
 import net.fabricmc.tiny.event.ClientEvent;
 import net.fabricmc.tiny.utils.ResourceUtils;
-import net.fabricmc.tiny.utils.SpriteUtils;
+import net.fabricmc.tiny.utils.common.SpriteUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.Vector4f;

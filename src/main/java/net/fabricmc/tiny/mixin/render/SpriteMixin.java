@@ -1,6 +1,6 @@
 package net.fabricmc.tiny.mixin.render;
 
-import net.fabricmc.tiny.utils.SpriteUtils;
+import net.fabricmc.tiny.utils.common.SpriteUtils;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
