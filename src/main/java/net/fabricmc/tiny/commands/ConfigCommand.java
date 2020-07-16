@@ -99,6 +99,7 @@ public class ConfigCommand {
             valueStr = StringArgumentType.getString(ctx, "value");
             property.fromString(valueStr);
         }
+        Config.write();
         ctx.getSource().sendFeedback(new TranslatableText("text.propertyUpdate", new TranslatableText("config." + key), valueStr));
         return Command.SINGLE_SUCCESS;
     }

@@ -1,8 +1,6 @@
 package net.fabricmc.tiny;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import net.fabricmc.tiny.utils.FileUtils;
 import net.fabricmc.tiny.utils.property.AbstractProperty;
 import net.fabricmc.tiny.utils.property.Categories;
@@ -17,9 +15,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Config {
 
-    private static final String CONFIG_FILE = "./tiny-config.json";
-
-    //public static final BooleanProperty LINEAR_TEXTURES = new BooleanProperty(Categories.GRAPHICS, false, null);
+    private static final String CONFIG_FILE = "./config/tiny-options.json";
 
     public static final FloatProperty CLOUD_HEIGHT = new FloatProperty(Categories.DETAILS, 100D, 80D, 500D, 1.0F, null);
     public static final BooleanProperty BETTER_GRASS = new BooleanProperty(Categories.DETAILS, false, null);
@@ -34,17 +30,14 @@ public class Config {
             "default", "far", "near", "off"
     }, null);
 
-    //public static final BooleanProperty BEDROCK_FOG = new BooleanProperty(Categories.DETAILS, false, null);
     public static final BooleanProperty TEXTURE_ANIMATION = new BooleanProperty(Categories.DETAILS, true, null);
     public static final EnumProperty ITEM_RENDERING = new EnumProperty(Categories.DETAILS, 0, new String[]{
             "default", "simple", "fancy"
     }, null);
-    //public static final BooleanProperty CHUNK_MAP_PREVIEW = new BooleanProperty(Categories.DETAILS, false, null);
 
     public static final FloatProperty ZOOM_FACTOR = new FloatProperty(Categories.OTHER, 19.0D, 1.0D, 40.0D, 1.0F, null);
     public static final FloatProperty DEBUG_TEXT_OPACITY = new FloatProperty(Categories.OTHER, 0.9568627451D, 0.0D, 1.0D, 0.01F, null);
     public static final FloatProperty DEBUG_OPACITY = new FloatProperty(Categories.OTHER, 0.5647058824D, 0.0D, 1.0D, 0.01F, null);
-    //public static final BooleanProperty DEBUG_COLORS = new BooleanProperty(Categories.OTHER, false, null);
     public static final BooleanProperty DEBUG_GRAPH = new BooleanProperty(Categories.OTHER, false, null);
     public static final BooleanProperty SHOW_FPS = new BooleanProperty(Categories.OTHER, false, null);
     public static final BooleanProperty SHOW_TPS = new BooleanProperty(Categories.OTHER, false, null);
@@ -134,6 +127,9 @@ public class Config {
 
     public static void write()
     {
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
         JsonObject jsonObject = new JsonObject();
         properties.forEach((key, property) -> {
             if (property instanceof FloatProperty)
@@ -143,7 +139,7 @@ public class Config {
             else
                 jsonObject.addProperty(key, property.asString());
         });
-        FileUtils.write(CONFIG_FILE, jsonObject.toString().getBytes());
+        FileUtils.write(CONFIG_FILE, gson.toJson(jsonObject).getBytes());
     }
 
     public static void load()
