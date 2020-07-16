@@ -16,6 +16,7 @@
     "render.ItemEntityRenderingMixin",
     "render.BakedQuadMixin",
     "render.SpriteMixin",
+    "render.InGameOverlayRendererMixin",
 
     "gui.DebugHudMixin",
     "gui.VideoOptionsScreenMixin",

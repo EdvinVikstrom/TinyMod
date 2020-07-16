@@ -42,7 +42,7 @@ public abstract class ItemEntityRenderingMixin extends EntityRenderer<ItemEntity
             method = "render")
     private void rotateItemX(ItemEntity itemEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo info)
     {
-        if (Config.DROPPED_ITEM_RENDERING.get() != 0)
+        if (Config.ITEM_RENDERING.get() != 0)
             matrixStack.multiply(Vector3f.POSITIVE_X.getRadialQuaternion(itemEntity.isOnGround() ? Maths.PI05F : count * 0.25F));
     }
 
@@ -51,7 +51,7 @@ public abstract class ItemEntityRenderingMixin extends EntityRenderer<ItemEntity
             method = "render")
     private void removeItemRotation(MatrixStack matrixStack, Quaternion quaternion)
     {
-        if (Config.DROPPED_ITEM_RENDERING.get() == 0)
+        if (Config.ITEM_RENDERING.get() == 0)
             matrixStack.multiply(quaternion);
     }
 
@@ -62,7 +62,7 @@ public abstract class ItemEntityRenderingMixin extends EntityRenderer<ItemEntity
     {
         count+=0.005F;
         count = count % Maths.PI2F;
-        if (Config.DROPPED_ITEM_RENDERING.get() == 0)
+        if (Config.ITEM_RENDERING.get() == 0)
             matrixStack.translate(x, y, z);
         else
             matrixStack.translate(0.0D, 0.025D, 0.0D);
@@ -73,7 +73,7 @@ public abstract class ItemEntityRenderingMixin extends EntityRenderer<ItemEntity
             method = "render")
     private void renderItem(ItemRenderer itemRenderer, ItemStack stack, ModelTransformation.Mode renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, BakedModel model)
     {
-        if (Config.DROPPED_ITEM_RENDERING.get() == 2)
+        if (Config.ITEM_RENDERING.get() == 2)
         {
             double offset = model.hasDepth() ? 0.25D : 0.03D;
             double x = 0, y = 0;
@@ -95,7 +95,7 @@ public abstract class ItemEntityRenderingMixin extends EntityRenderer<ItemEntity
     @Inject(at = @At("HEAD"), method = "getRenderedAmount", cancellable = true)
     private void getRenderedAmount(ItemStack itemStack, CallbackInfoReturnable<Integer> info)
     {
-        if (Config.DROPPED_ITEM_RENDERING.get() == 2)
+        if (Config.ITEM_RENDERING.get() == 2)
             info.setReturnValue(1);
     }
 

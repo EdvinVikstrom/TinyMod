@@ -36,7 +36,7 @@ public class Config {
 
     //public static final BooleanProperty BEDROCK_FOG = new BooleanProperty(Categories.DETAILS, false, null);
     public static final BooleanProperty TEXTURE_ANIMATION = new BooleanProperty(Categories.DETAILS, true, null);
-    public static final EnumProperty DROPPED_ITEM_RENDERING = new EnumProperty(Categories.DETAILS, 0, new String[]{
+    public static final EnumProperty ITEM_RENDERING = new EnumProperty(Categories.DETAILS, 0, new String[]{
             "default", "simple", "fancy"
     }, null);
     //public static final BooleanProperty CHUNK_MAP_PREVIEW = new BooleanProperty(Categories.DETAILS, false, null);
@@ -50,11 +50,9 @@ public class Config {
     public static final BooleanProperty SHOW_TPS = new BooleanProperty(Categories.OTHER, false, null);
     public static final BooleanProperty SHOW_COORDS = new BooleanProperty(Categories.OTHER, false, null);
     public static final BooleanProperty SHOW_COLLISION = new BooleanProperty(Categories.OTHER, false, null);
+    public static final BooleanProperty CREATIVE_FIRE_OVERLAY = new BooleanProperty(Categories.OTHER, true, null);
     public static final EnumProperty SCREENSHOT_RESOLUTION = new EnumProperty(Categories.OTHER, 0, new String[]{
             "disabled", "2K", "4K", "8K", "12K", "16K", "24K", "32K", "48K", "64K"
-    }, null);
-    public static final EnumProperty MATH_STYLE = new EnumProperty(Categories.OTHER, 0, new String[]{
-            "standard", "excel"
     }, null);
     public static final BooleanProperty OPENGL_INFO = new BooleanProperty(Categories.OTHER, false, null);
 
@@ -66,8 +64,8 @@ public class Config {
     private static final Map<String, AbstractProperty<?>> properties = new LinkedHashMap<>();
     static {
         {
-            RENDER_FOG.put("renderFog.far_value", RENDER_FOG$FAR_VALUE);
-            RENDER_FOG.put("renderFog.near_value", RENDER_FOG$NEAR_VALUE);
+            RENDER_FOG.put("farValue", RENDER_FOG$FAR_VALUE);
+            RENDER_FOG.put("nearValue", RENDER_FOG$NEAR_VALUE);
         }
         properties.put("cloudHeight", CLOUD_HEIGHT);
         properties.put("betterGrass", BETTER_GRASS);
@@ -76,22 +74,19 @@ public class Config {
         properties.put("renderSky", RENDER_SKY);
         properties.put("renderFog", RENDER_FOG);
         properties.put("connectedTextures", CONNECTED_TEXTURES);
-        //properties.put("bedrockFog", BEDROCK_FOG);
         properties.put("textureAnimation", TEXTURE_ANIMATION);
-        properties.put("droppedItemRendering", DROPPED_ITEM_RENDERING);
-        //properties.put("chunkMapPreview", CHUNK_MAP_PREVIEW);
+        properties.put("itemRendering", ITEM_RENDERING);
 
         properties.put("zoomFactor", ZOOM_FACTOR);
         properties.put("debugTextOpacity", DEBUG_TEXT_OPACITY);
         properties.put("debugOpacity", DEBUG_OPACITY);
-        //properties.put("debugColors", DEBUG_COLORS);
         properties.put("debugGraph", DEBUG_GRAPH);
         properties.put("showFPS", SHOW_FPS);
         properties.put("showTPS", SHOW_TPS);
         properties.put("showCoords", SHOW_COORDS);
         properties.put("showCollision", SHOW_COLLISION);
+        properties.put("creativeFireOverlay", CREATIVE_FIRE_OVERLAY);
         properties.put("screenshotResolution", SCREENSHOT_RESOLUTION);
-        properties.put("mathStyle", MATH_STYLE);
         properties.put("openglInfo", OPENGL_INFO);
 
         properties.put("activeShaderPack", ACTIVE_SHADER_PACK);
