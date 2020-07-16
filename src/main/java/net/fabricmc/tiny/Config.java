@@ -125,12 +125,8 @@ public class Config {
         }
     }
 
-    public static void write()
+    private static void writeProperties(Map<String, AbstractProperty<?>> properties, JsonObject jsonObject)
     {
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
-        JsonObject jsonObject = new JsonObject();
         properties.forEach((key, property) -> {
             if (property instanceof FloatProperty)
                 jsonObject.addProperty(key, ((FloatProperty) property).get());
@@ -139,6 +135,15 @@ public class Config {
             else
                 jsonObject.addProperty(key, property.asString());
         });
+    }
+
+    public static void write()
+    {
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
+        JsonObject jsonObject = new JsonObject();
+        writeProperties(properties, jsonObject);
         FileUtils.write(CONFIG_FILE, gson.toJson(jsonObject).getBytes());
     }
 
