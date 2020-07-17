@@ -2,7 +2,6 @@ package net.fabricmc.tiny.render.api.utils;
 
 import net.fabricmc.tiny.render.api.MeshQuad;
 import net.fabricmc.tiny.render.tiny_renderer.TinyMesh;
-import net.fabricmc.tiny.render.tiny_renderer.TinyRenderer;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class MeshBuilder {
 
     public TinyMesh build(Identifier identifier)
     {
-        return new TinyRenderer().meshManager().makeMesh(identifier, quads);
+        return TinyMesh.build(identifier, quads);
     }
 
 }

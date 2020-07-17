@@ -8,7 +8,7 @@ import net.fabricmc.tiny.Constants;
 import net.fabricmc.tiny.TinyMod;
 import net.fabricmc.tiny.event.ClientEvent;
 import net.fabricmc.tiny.utils.ResourceUtils;
-import net.fabricmc.tiny.utils.common.SpriteUtils;
+import net.fabricmc.tiny.utils.helper.SpriteHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.Vector4f;
@@ -94,8 +94,8 @@ public class TinyMaterialManager implements ClientEvent.Event {
                     color[i] = jsonElements.get(i).getAsFloat();
             }
 
-            Sprite texture = textureID != null ? SpriteUtils.getSprite(textureID) : null;
-            Sprite normal = normalID != null ? SpriteUtils.getSprite(normalID) : null;
+            Sprite texture = textureID != null ? SpriteHelper.getSprite(textureID) : null;
+            Sprite normal = normalID != null ? SpriteHelper.getSprite(normalID) : null;
             preMaterials.add(identifier);
             registerMaterial(identifier, makeMaterial(identifier, new Vector4f(
                     color[0], color[1], color[2], color[3]

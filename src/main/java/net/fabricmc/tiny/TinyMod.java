@@ -1,13 +1,10 @@
 package net.fabricmc.tiny;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.tiny.content.TinyBlocks;
 import net.fabricmc.tiny.event.InitEvent;
 import net.fabricmc.tiny.event.RenderEvent;
 import net.fabricmc.tiny.event.TickEvent;
 import net.fabricmc.tiny.event.events.*;
-import net.fabricmc.tiny.fixer.TinyFixesManager;
-import net.fabricmc.tiny.render.BlockCollisionRenderer;
 import net.fabricmc.tiny.render.HudRenderer;
 import net.fabricmc.tiny.render.tiny_renderer.TinyRenderer;
 import net.minecraft.client.MinecraftClient;
@@ -22,7 +19,6 @@ public class TinyMod implements ClientModInitializer {
     public void onInitializeClient()
     {
         LOGGER.info("HI!");
-        TinyFixesManager.INSTANCE.initFixes();
 
         Config.load();
         registerEvents();
@@ -34,7 +30,6 @@ public class TinyMod implements ClientModInitializer {
 
     private void registerEvents()
     {
-        InitEvent.INSTANCE.registerEvent(TinyBlocks.INSTANCE);
         InitEvent.INSTANCE.registerEvent(ZoomEvent.INSTANCE);
         InitEvent.INSTANCE.registerEvent(KeysEvent.INSTANCE);
         TickEvent.INSTANCE.registerEvent(ZoomEvent.INSTANCE);
@@ -42,7 +37,6 @@ public class TinyMod implements ClientModInitializer {
         TickEvent.INSTANCE.registerEvent(OpenGLLogger.INSTANCE);
         InitEvent.INSTANCE.registerEvent(LinearTexEvent.INSTANCE);
         RenderEvent.INSTANCE.registerEvent(TinyRenderer.INSTANCE);
-        RenderEvent.INSTANCE.registerEvent(BlockCollisionRenderer.INSTANCE);
         RenderEvent.INSTANCE.registerEvent(HudRenderer.INSTANCE);
     }
 

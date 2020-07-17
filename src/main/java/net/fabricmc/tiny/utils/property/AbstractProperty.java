@@ -5,7 +5,9 @@ import java.util.*;
 
 public abstract class AbstractProperty<T> {
 
+    // TODO: better flag system
     public static final byte FLAG_DEPRECATED = 0;
+    public static final byte FLAG_WIP = 1;
 
     public interface Event {
         void update(AbstractProperty<?> property);
@@ -16,7 +18,6 @@ public abstract class AbstractProperty<T> {
     protected T value;
     protected final List<Byte> flags;
     protected final Event event;
-    protected final Map<String, AbstractProperty<?>> children;
 
     public AbstractProperty(ICategory category, T defaultValue, T value, @Nullable Event event)
     {
@@ -25,7 +26,6 @@ public abstract class AbstractProperty<T> {
         this.value = value;
         this.event = event;
         flags = new ArrayList<>();
-        children = new LinkedHashMap<>();
     }
 
     public AbstractProperty(ICategory category, T defaultValue, @Nullable Event event)
@@ -58,22 +58,11 @@ public abstract class AbstractProperty<T> {
         flags.add(b);
     }
 
-    public Map<String, AbstractProperty<?>> getChildren()
-    {
-        return children;
-    }
-
     public void set(T value)
     {
         this.value = value;
         if (event != null)
             event.update(this);
-    }
-
-    public AbstractProperty<?> put(String key, AbstractProperty<?> property)
-    {
-        children.put(key, property);
-        return this;
     }
 
     public void reset()

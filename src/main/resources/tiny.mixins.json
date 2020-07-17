@@ -1,14 +1,13 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.fabricmc.tiny.mixin",
+  "package": "net.fabricmc.tiny.mixin.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
   ],
   "client": [
     "other.ScreenshotUtilsMixin",
     "other.TakeScreenshotMixin",
-
     "render.ZoomRenderingMixin",
     "render.SpriteAtlasTextureMixin",
     "render.SpriteAtlasTexture$DataMixin",
@@ -17,15 +16,12 @@
     "render.BakedQuadMixin",
     "render.SpriteMixin",
     "render.InGameOverlayRendererMixin",
-
     "gui.DebugHudMixin",
     "gui.VideoOptionsScreenMixin",
     "gui.LevelLoadingScreenMixin",
-
     "world.SkyPropertiesMixin",
     "world.ClientChunkManagerMixin",
     "world.ClientChunkManager$ClientChunkMap",
-
     "MinecraftClientMixin"
   ],
   "injectors": {

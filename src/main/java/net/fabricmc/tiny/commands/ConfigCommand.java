@@ -11,6 +11,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.github.cottonmc.clientcommands.CottonClientCommandSource;
 import net.fabricmc.tiny.Config;
 import net.fabricmc.tiny.commands.arguments.EnumArgumentType;
+import net.fabricmc.tiny.utils.CommonTexts;
 import net.fabricmc.tiny.utils.property.AbstractProperty;
 import net.fabricmc.tiny.utils.property.properties.BooleanProperty;
 import net.fabricmc.tiny.utils.property.properties.EnumProperty;
@@ -49,25 +50,20 @@ public class ConfigCommand {
                     .build();
 
             /* set node */
-            LiteralCommandNode<CottonClientCommandSource> configValueNode =
+            LiteralCommandNode<CottonClientCommandSource> configSetNode =
                     literal("set")
                                     .then(argument("value", argumentType)
                                             .executes(context -> executeSetProperty(context, key, property))
                                     )
                             .build();
-            configNode.addChild(configValueNode);
+            configNode.addChild(configSetNode);
 
-            /* modify node */
-            LiteralCommandNode<CottonClientCommandSource> configModifyNode =
-                    literal("modify")
-                    .build();
-
-            /* adding children */
-            if (property.getChildren().size() > 0)
-            {
-                registerProperties(property.getChildren(), configModifyNode);
-                configNode.addChild(configModifyNode);
-            }
+            /* get node */
+            LiteralCommandNode<CottonClientCommandSource> configGetNode =
+                    literal("get")
+                            .executes(context -> executeGetProperty(context, key, property))
+                            .build();
+            configNode.addChild(configGetNode);
 
             /* adding the nodes */
             node.addChild(configNode);
@@ -81,8 +77,8 @@ public class ConfigCommand {
         {
             boolean value = BoolArgumentType.getBool(ctx, "value");
             valueStr = value
-                    ? Formatting.GREEN + new TranslatableText("text.true").getString()
-                    : Formatting.RED + new TranslatableText("text.false").getString();
+                    ? Formatting.GREEN + CommonTexts.TRUE_TEXT.getString()
+                    : Formatting.RED + CommonTexts.FALSE_TEXT.getString();
             ((BooleanProperty) property).set(value);
         }else if (property instanceof FloatProperty)
         {
@@ -100,7 +96,14 @@ public class ConfigCommand {
             property.fromString(valueStr);
         }
         Config.write();
-        ctx.getSource().sendFeedback(new TranslatableText("text.propertyUpdate", new TranslatableText("config." + key), valueStr));
+        ctx.getSource().sendFeedback(new TranslatableText("text.property_update", new TranslatableText("config." + key), valueStr));
+        return Command.SINGLE_SUCCESS;
+    }
+
+    private static int executeGetProperty(CommandContext<CottonClientCommandSource> ctx, String key, AbstractProperty<?> property)
+    {
+        Config.load();
+        ctx.getSource().sendFeedback(new TranslatableText("text.property_update", new TranslatableText("config." + key), property.asString()));
         return Command.SINGLE_SUCCESS;
     }
 }

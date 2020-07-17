@@ -3,8 +3,8 @@ package net.fabricmc.tiny.render.tiny_renderer.util.format;
 import net.fabricmc.tiny.render.tiny_renderer.TinyMaterial;
 import net.fabricmc.tiny.render.tiny_renderer.TinyMesh;
 import net.fabricmc.tiny.render.tiny_renderer.util.AbstractMeshExporter;
-import net.fabricmc.tiny.utils.reading.FileUtils;
-import net.fabricmc.tiny.utils.common.SpriteUtils;
+import net.fabricmc.tiny.utils.FileUtils;
+import net.fabricmc.tiny.utils.helper.SpriteHelper;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 
 import java.io.File;
@@ -112,7 +112,7 @@ public class ObjMeshExporter extends AbstractMeshExporter {
         for (SpriteAtlasTexture atlasTexture : textures)
         {
             String texPath = filepath + "-" + atlasTexture.getId().getPath().replace("/", ".");
-            SpriteUtils.writeAtlas(texPath, atlasTexture);
+            SpriteHelper.writeAtlas(texPath, atlasTexture);
         }
         FileUtils.write(filepath + ".obj", obj.toString().getBytes());
         FileUtils.write(filepath + ".mtl", mtl.toString().getBytes());

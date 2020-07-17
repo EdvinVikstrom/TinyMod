@@ -2,7 +2,7 @@ package net.fabricmc.tiny.event;
 
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.tiny.TinyMod;
-import net.fabricmc.tiny.imixin.IMinecraftClientMixin;
+import net.fabricmc.tiny.mixin.imixin.IMinecraftClientMixin;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.BufferBuilderStorage;
 import net.minecraft.client.render.Camera;

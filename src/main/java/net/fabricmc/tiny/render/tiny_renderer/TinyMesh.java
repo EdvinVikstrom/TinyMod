@@ -15,15 +15,13 @@ import java.util.Map;
 public class TinyMesh {
 
     private final Identifier identifier;
-    private final int glID;
     private final FloatBuffer vertices;
     private final IntBuffer indices;
     private final List<TinyMaterial> materials;
 
-    public TinyMesh(Identifier identifier, int glID, FloatBuffer vertices, IntBuffer indices, List<TinyMaterial> materials)
+    public TinyMesh(Identifier identifier, FloatBuffer vertices, IntBuffer indices, List<TinyMaterial> materials)
     {
         this.identifier = identifier;
-        this.glID = glID;
         this.vertices = vertices;
         this.indices = indices;
         this.materials = materials;
@@ -32,11 +30,6 @@ public class TinyMesh {
     public Identifier identifier()
     {
         return identifier;
-    }
-
-    public int glID()
-    {
-        return glID;
     }
 
     public FloatBuffer vertices()
@@ -54,7 +47,7 @@ public class TinyMesh {
         return materials;
     }
 
-    public static TinyMesh build(Identifier identifier, int glID, List<MeshQuad> quads)
+    public static TinyMesh build(Identifier identifier, List<MeshQuad> quads)
     {
         IntBuffer indices = BufferUtils.createIntBuffer(quads.size() + ((quads.size() * 4) * 3));
         List<TinyMaterial> materials = new ArrayList<>();
@@ -91,6 +84,6 @@ public class TinyMesh {
         }
         FloatBuffer vertices = BufferUtils.createFloatBuffer(indexMap.size() * Vertex.SIZE);
         indexMap.forEach((vertex, integer) -> vertex.put(vertices));
-        return new TinyMesh(identifier, glID, vertices.flip(), indices.flip(), materials);
+        return new TinyMesh(identifier, vertices.flip(), indices.flip(), materials);
     }
 }

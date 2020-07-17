@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.tiny.event.InitEvent;
 import net.fabricmc.tiny.event.TickEvent;
 import net.fabricmc.tiny.screen.MeshExporterScreen;
-import net.fabricmc.tiny.screen.config.ConfigMenuScreen;
+import net.fabricmc.tiny.screen.TinyConfigScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.util.InputUtil;
@@ -28,7 +28,7 @@ public class KeysEvent implements InitEvent.Event, TickEvent.Event {
     public void TickEvent_onClientTick(MinecraftClient client)
     {
         if (CONFIG_KEY_BINDING.wasPressed())
-            client.openScreen(new ConfigMenuScreen(client.currentScreen));
+            client.openScreen(new TinyConfigScreen(client.currentScreen));
         if (EXPORT_MESH_KEY_BINDING.wasPressed())
             client.openScreen(new MeshExporterScreen(client.currentScreen));
     }

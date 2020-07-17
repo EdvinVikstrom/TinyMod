@@ -1,6 +1,6 @@
 package net.fabricmc.tiny.render.api;
 
-import net.fabricmc.tiny.imixin.IBakedQuad;
+import net.fabricmc.tiny.mixin.imixin.IBakedQuad;
 import net.fabricmc.tiny.render.tiny_renderer.TinyMaterial;
 import net.fabricmc.tiny.render.tiny_renderer.TinyRenderer;
 import net.minecraft.client.render.VertexFormats;
