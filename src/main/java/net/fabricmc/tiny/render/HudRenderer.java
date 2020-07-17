@@ -3,12 +3,14 @@ package net.fabricmc.tiny.render;
 import net.fabricmc.tiny.Config;
 import net.fabricmc.tiny.event.RenderEvent;
 import net.fabricmc.tiny.event.TickEvent;
+import net.fabricmc.tiny.event.events.EntityMovementHandler;
 import net.fabricmc.tiny.utils.helper.ColorHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,7 @@ public class HudRenderer implements RenderEvent.Event {
             {
                 int width = textRenderer.getWidth(lines.get(i));
                 int y = 2 + textRenderer.fontHeight * i;
-                DrawableHelper.fill(matrixStack, 1, y - 1, 2 + width + 1, 1 + y + textRenderer.fontHeight - 1, getDebugColor());
+                DrawableHelper.fill(matrixStack, 1, y - 1, 2 + width + 1, y + textRenderer.fontHeight - 1, getDebugColor());
                 textRenderer.draw(matrixStack, lines.get(i), 2.0F, (float) y, getDebugTextColor());
             }
         }
@@ -37,6 +39,7 @@ public class HudRenderer implements RenderEvent.Event {
 
     private static void getText(List<String> lines)
     {
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
         if (Config.SHOW_FPS.get()) lines.add(RenderEvent.getCurrentFPS() + " fps");
         if (Config.SHOW_TPS.get())
         {
@@ -45,17 +48,12 @@ public class HudRenderer implements RenderEvent.Event {
             else
                 lines.add(TickEvent.getCurrentTPS() + " tps");
         }
-        if (Config.SHOW_COORDS.get())
+        if (Config.SHOW_COORDS.get() && player != null)
+            lines.add(String.format("XYZ: %.1f / %.1f / %.1f", player.getX(), player.getY(), player.getZ()));
+        if (Config.SHOW_VELOCITY.get() && player != null)
         {
-            ClientPlayerEntity player = MinecraftClient.getInstance().player;
-            double x = Double.NaN, y = Double.NaN, z = Double.NaN;
-            if (player != null)
-            {
-                x = player.getX();
-                y = player.getY();
-                z = player.getZ();
-            }
-            lines.add(String.format("XYZ: %.1f %.1f %.1f", x, y, z));
+            Entity entity = player.isRiding() ? player.getVehicle() : player;
+            lines.add(String.format("Velocity: %.1f", EntityMovementHandler.INSTANCE.getEntityVelocity(entity)));
         }
     }
 

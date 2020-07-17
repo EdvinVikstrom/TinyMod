@@ -1,6 +1,7 @@
 package net.fabricmc.tiny;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.tiny.event.EntityEvent;
 import net.fabricmc.tiny.event.InitEvent;
 import net.fabricmc.tiny.event.RenderEvent;
 import net.fabricmc.tiny.event.TickEvent;
@@ -38,6 +39,7 @@ public class TinyMod implements ClientModInitializer {
         InitEvent.INSTANCE.registerEvent(LinearTexEvent.INSTANCE);
         RenderEvent.INSTANCE.registerEvent(TinyRenderer.INSTANCE);
         RenderEvent.INSTANCE.registerEvent(HudRenderer.INSTANCE);
+        EntityEvent.INSTANCE.registerEvent(EntityMovementHandler.INSTANCE);
     }
 
     private void initRenderer()

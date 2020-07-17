@@ -9,5 +9,6 @@ public class CommonTexts {
     public static final TranslatableText FALSE_TEXT = new TranslatableText("text.false");
     public static final TranslatableText DEPRECATED_TEXT = new TranslatableText("text.deprecated");
     public static final TranslatableText WIP_TEXT = new TranslatableText("text.wip");
+    public static final TranslatableText NMW_TEXT = new TranslatableText("text.nmw");
 
 }

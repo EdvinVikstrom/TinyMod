@@ -8,6 +8,7 @@ public abstract class AbstractProperty<T> {
     // TODO: better flag system
     public static final byte FLAG_DEPRECATED = 0;
     public static final byte FLAG_WIP = 1;
+    public static final byte FLAG_NMW = 2;
 
     public interface Event {
         void update(AbstractProperty<?> property);

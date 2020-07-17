@@ -27,6 +27,7 @@
   "config.show_fps": "Show FPS",
   "config.show_tps": "Show TPS",
   "config.show_coords": "Show Coordinates",
+  "config.show_velocity": "Show Velocity",
   "config.debug_graph": "Show Graph in F3",
   "config.screenshot_resolution": "Screenshot Size",
     "config.screenshot_resolution.disabled": "default",
@@ -74,5 +75,6 @@
   "text.true": "true",
   "text.false": "false",
   "text.deprecated": "Deprecated",
-  "text.wip": "Not done yet!"
+  "text.wip": "Not done yet!",
+  "text.nmw": "Needs more work!"
 }

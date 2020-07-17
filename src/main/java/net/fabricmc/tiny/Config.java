@@ -41,6 +41,7 @@ public class Config {
     public static final BooleanProperty SHOW_FPS = new BooleanProperty(Categories.OTHER, false, null);
     public static final BooleanProperty SHOW_TPS = new BooleanProperty(Categories.OTHER, false, null);
     public static final BooleanProperty SHOW_COORDS = new BooleanProperty(Categories.OTHER, false, null);
+    public static final BooleanProperty SHOW_VELOCITY = new BooleanProperty(Categories.OTHER, false, null);
     public static final BooleanProperty CREATIVE_FIRE_OVERLAY = new BooleanProperty(Categories.OTHER, true, null);
     public static final EnumProperty SCREENSHOT_RESOLUTION = new EnumProperty(Categories.OTHER, 0, new String[]{
             "disabled", "2K", "4K", "8K", "12K", "16K", "24K", "32K", "48K", "64K"
@@ -56,6 +57,8 @@ public class Config {
         CONNECTED_TEXTURES.putFlag(AbstractProperty.FLAG_WIP);
         DEBUG_GRAPH.putFlag(AbstractProperty.FLAG_WIP);
         SCREENSHOT_RESOLUTION.putFlag(AbstractProperty.FLAG_WIP);
+
+        SHOW_VELOCITY.putFlag(AbstractProperty.FLAG_NMW);
 
         properties.put("cloud_height", CLOUD_HEIGHT);
         properties.put("better_grass", BETTER_GRASS);
@@ -74,6 +77,7 @@ public class Config {
         properties.put("show_fps", SHOW_FPS);
         properties.put("show_tps", SHOW_TPS);
         properties.put("show_coords", SHOW_COORDS);
+        properties.put("show_velocity", SHOW_VELOCITY);
         properties.put("creative_fire_overlay", CREATIVE_FIRE_OVERLAY);
         properties.put("screenshot_resolution", SCREENSHOT_RESOLUTION);
         properties.put("opengl_info", OPENGL_INFO);

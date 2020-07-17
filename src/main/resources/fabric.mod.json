@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "tiny",
-  "version": "0.0.1",
+  "version": "0.0.2",
 
   "name": "Tiny Mod",
   "description": "Adds tiny functions and optimizes minecraft :)",

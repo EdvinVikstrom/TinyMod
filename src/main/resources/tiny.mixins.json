@@ -8,6 +8,7 @@
   "client": [
     "other.ScreenshotUtilsMixin",
     "other.TakeScreenshotMixin",
+
     "render.ZoomRenderingMixin",
     "render.SpriteAtlasTextureMixin",
     "render.SpriteAtlasTexture$DataMixin",
@@ -16,12 +17,16 @@
     "render.BakedQuadMixin",
     "render.SpriteMixin",
     "render.InGameOverlayRendererMixin",
+
     "gui.DebugHudMixin",
     "gui.VideoOptionsScreenMixin",
     "gui.LevelLoadingScreenMixin",
+
     "world.SkyPropertiesMixin",
     "world.ClientChunkManagerMixin",
     "world.ClientChunkManager$ClientChunkMap",
+    "world.EntityMixin",
+
     "MinecraftClientMixin"
   ],
   "injectors": {
