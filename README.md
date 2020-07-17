@@ -4,25 +4,25 @@
 [![GitHub stars](https://img.shields.io/github/stars/Ficklampan/TinyMod?color=yellow&style=for-the-badge)](https://github.com/Ficklampan/TinyMod/stargazers)  
 ### A mod for minecraft java edition that adds optimizations and some cool stuff :)
 ## Functions:
-  - ***Faster Math***
-  - ***Zoom***
-  - ***Shader Support [WIP]***
-  - ***settings for costimizing the game***
+  - **Zoom**
+  - **settings for costimizing the game**
 
 ## Graphics Customization settings:
-  - ***Cloud Height***
-  - ***Better Grass [toggleable]***
-  - ***Render Stars [toggleable]***
-  - ***Render Weather [toggleable]***
-  - ***Render Sky [toggleable]***
-  - ***Render Fog [default/far/near/off]***
-  - ***Animated Textures [toggleable]***
-  - ***Item Rendering [default/simple/fancy]***
+  - **Cloud Height**
+  - **Better Grass [toggleable]** // WIP
+  - **Connected Textures [toggleable]** // WIP
+  - **Render Stars [toggleable]**
+  - **Render Weather [toggleable]**
+  - **Render Sky [toggleable]**
+  - **Render Fog [default/far/near/off]**
+  - **Animated Textures [toggleable]***
+  - **Item Rendering [default/simple/fancy]**
+  - **Creative Fire Overlay [toggleable]**
 
 ## Other Customization settings:
-  - ***Debug Pie Text Opacity***
-  - ***Debug Pie Opacity***
-  - ***Debug Graph [toggleable]***
-  - ***Show FPS [toggleable]***
-  - ***Show TPS [toggleable]***
-  - ***Show Coords [toggleable]***
+  - **Debug Pie Text Opacity**
+  - **Debug Pie Opacity**
+  - **Debug Graph [toggleable]** // WIP
+  - **Show FPS [toggleable]**
+  - **Show TPS [toggleable]**
+  - **Show Coords [toggleable]**
