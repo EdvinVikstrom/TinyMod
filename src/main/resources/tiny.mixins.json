@@ -19,12 +19,9 @@
     "render.InGameOverlayRendererMixin",
 
     "gui.DebugHudMixin",
-    "gui.VideoOptionsScreenMixin",
-    "gui.LevelLoadingScreenMixin",
 
     "world.SkyPropertiesMixin",
     "world.ClientChunkManagerMixin",
-    "world.ClientChunkManager$ClientChunkMap",
     "world.EntityMixin",
 
     "MinecraftClientMixin"
