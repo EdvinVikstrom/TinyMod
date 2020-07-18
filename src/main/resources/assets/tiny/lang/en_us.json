@@ -14,7 +14,8 @@
   "screen.mesh_exporter.title": "Mesh Exporter",
   "screen.mesh_exporter.mesh_name": "Mesh Name",
   "screen.mesh_exporter.export": "Export",
-
+  
+  "config.all": "All",
   "config.category.shaders": "Shaders",
   "config.category.graphics": "Graphics",
   "config.category.details": "Details",
