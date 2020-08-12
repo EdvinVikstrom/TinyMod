@@ -2,10 +2,10 @@
 [![GitHub issues](https://img.shields.io/github/issues/Ficklampan/TinyMod?style=for-the-badge)](https://github.com/Ficklampan/TinyMod/issues)  
 [![GitHub forks](https://img.shields.io/github/forks/Ficklampan/TinyMod?style=for-the-badge)](https://github.com/Ficklampan/TinyMod/network)  
 [![GitHub stars](https://img.shields.io/github/stars/Ficklampan/TinyMod?color=yellow&style=for-the-badge)](https://github.com/Ficklampan/TinyMod/stargazers)  
-### A mod for minecraft java edition that adds optimizations and some cool stuff :)
+### A mod for minecraft java edition that optimizes Minecraft and adds some cool stuff :)
 ## Functions:
   - **Zoom**
-  - **settings for costimizing the game**
+  - **settings for customizing the game**
 
 ## Graphics Customization settings:
   - **Cloud Height**
